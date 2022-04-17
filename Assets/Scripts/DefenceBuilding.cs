@@ -11,8 +11,10 @@ public class DefenceBuilding : MonoBehaviour {
     [SerializeField] private float attackRadius = 1.5f;
     [SerializeField] private float attackRate = 0.5f;    // number of seconds between shots
     [SerializeField] private bool canAttack = false;
+    [SerializeField] private bool isTriggered = false;
     [SerializeField] private GameObject firePoint = null;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private int contactDamage = 0;
     private int _currentHealth;
     public int cost = 10;
 
@@ -34,7 +36,7 @@ public class DefenceBuilding : MonoBehaviour {
     }
 
     void Start() {
-        enemyManager.OnWaveChanged.AddListener(GetEnemies);
+        enemyManager.OnWaveStarted.AddListener(GetEnemies);
         timeSinceLastAttack = attackRate;
         GetEnemies(0);
     }
@@ -54,24 +56,33 @@ public class DefenceBuilding : MonoBehaviour {
     }
 
     private void Update() {
-        if (canAttack && targetList.Count > 0) {
-            if (this.target == null) {
-                // don't have a current target, so pick closest
-                float minDistance = 100f;
+        if (isTriggered) {
+            // this type of defence building waits for an enemy to get close then delivers a lot of damage to the target
+            SetNearestTarget(true);
+            TriggerAttack();
+        } else if (canAttack && targetList.Count > 0) {
+            SetNearestTarget();
+            ShootAttack();
+        } else {
+            target = null;
+        }
+    }
 
-                foreach (GameObject t in targetList) {
-                    if (t != null) {
-                        float d = Vector2.Distance(t.transform.position, this.transform.position);
-                        if (d < minDistance) {
-                            minDistance = d;
-                            target = t;
-                        }
+    private void SetNearestTarget(bool changeTarget = false) {
+        // if changeTarget is true, select a new target; if false, on select a new target if we don't currently have one
+        if (this.target == null || changeTarget) {
+            // don't have a current target or always pick closest, so pick closest
+            float minDistance = 100f;
+
+            foreach (GameObject t in targetList) {
+                if (t != null) {
+                    float d = Vector2.Distance(t.transform.position, this.transform.position);
+                    if (d < minDistance) {
+                        minDistance = d;
+                        target = t;
                     }
                 }
             }
-            Attack();
-        } else {
-            target = null;
         }
     }
 
@@ -79,7 +90,7 @@ public class DefenceBuilding : MonoBehaviour {
         targetList = enemyManager.GetEnemies();
     }
 
-    private void Attack() {
+    private void ShootAttack() {
         // attack the current target if it's within range
         if (target == null) { return; }
         float distance = Vector2.Distance(target.transform.position, this.transform.position);
@@ -96,6 +107,22 @@ public class DefenceBuilding : MonoBehaviour {
                 timeSinceLastAttack += Time.deltaTime;
             }
         }
+    }
+    
+    private void TriggerAttack() {
+        if (target == null) { return; }
+        float distance = Vector2.Distance(target.transform.position, this.transform.position);
+        Debug.DrawLine(this.transform.position, target.transform.position, Color.magenta);
+        Debug.Log("Distance to " + target + " = " + distance);
+        if (distance <= attackRadius) {
+            Soldier s = target.GetComponent<Soldier>();
+            s.TakeHit(contactDamage);
+            DoDamage(1);
+        }
+    }
+
+    public void HasCollided(Soldier enemy) {
+
     }
 
     public int GetHealth() { return _currentHealth; }

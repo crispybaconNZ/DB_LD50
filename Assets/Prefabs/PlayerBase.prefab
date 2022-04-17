@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b40cd9541cc964690fecbadd0ce729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canPlaceColour: {r: 0, g: 1, b: 0, a: 1}
+  cantPlaceColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!61 &90971614791686483
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,12 +138,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54ff57f13b1e664d95d47dfe5aef52d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health_: 100
+  startingHealth: 10
+  _name: Home Base
+  _description: Your home base. Defend this at all costs! The game is over if your
+    base is destroyed.
   attackRadius: 1.5
   attackRate: 0.5
   canAttack: 0
   firePoint: {fileID: 90971615777419787}
-  bulletPrefab: {fileID: 5767610915948587510, guid: 6f11269e9993dc84d89c85b9198e432c, type: 3}
+  bulletPrefab: {fileID: 0}
+  cost: 0
 --- !u!1 &90971615777419787
 GameObject:
   m_ObjectHideFlags: 0

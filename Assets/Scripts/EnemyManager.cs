@@ -9,12 +9,16 @@ public class EnemyManager : MonoBehaviour {
     [SerializeField] private GameObject soldierPrefab;
     [SerializeField] private GameObject bossPrefab;
     private Transform spawnpoint;
-    private float timeToNextWave = 5f;
+    private float timeToNextWave;
     private Transform attackPoint;
     private UIManager uiManager;
 
+    private readonly float START_GAME_TIMER = 10f;
+    private readonly float INTRA_WAVE_TIMER = 15f;
+
     public class WaveEvent : UnityEvent<int> { }
-    public WaveEvent OnWaveChanged;
+    public WaveEvent OnWaveStarted;
+    public WaveEvent OnWaveEnded;
 
     public class EnemyDeathEvent: UnityEvent<int>{ }
     public EnemyDeathEvent OnEnemyDeath;
@@ -24,8 +28,11 @@ public class EnemyManager : MonoBehaviour {
         enemies = new List<GameObject>();
         spawnpoint = GameObject.Find("EnemySpawnPoint").transform;
         attackPoint = GameObject.Find("AttackPoint").transform;
-        uiManager = GameObject.Find("UI").GetComponent<UIManager>();
-        if (OnWaveChanged == null) { OnWaveChanged = new WaveEvent(); }
+        uiManager = GameObject.Find("UI")?.GetComponent<UIManager>();
+        timeToNextWave = START_GAME_TIMER;
+
+        if (OnWaveStarted == null) { OnWaveStarted = new WaveEvent(); }
+        if (OnWaveEnded == null) { OnWaveEnded = new WaveEvent(); }
         if (OnEnemyDeath == null) { OnEnemyDeath = new EnemyDeathEvent(); }
     }
 
@@ -34,14 +41,14 @@ public class EnemyManager : MonoBehaviour {
         if (enemies.Count == 0) {
             timeToNextWave -= Time.deltaTime;
             // Debug.Log("Time to next wave: " + timeToNextWave + " seconds");
-            uiManager.SetCountdown((int)timeToNextWave);
+            uiManager.SetCountdown(timeToNextWave);
             if (timeToNextWave < 0) {
                 CreateWave();
             }
-            OnWaveChanged?.Invoke(currentWave);
+            OnWaveStarted?.Invoke(currentWave);
         } else {
             // Debug.Log("Enemies left: " + enemies.Count);
-            uiManager.SetCountdown(-1);
+            uiManager.SetCountdown(-1f);
         }
     }
 
@@ -92,7 +99,7 @@ public class EnemyManager : MonoBehaviour {
             }
         }
 
-        OnWaveChanged?.Invoke(currentWave);
+        OnWaveStarted?.Invoke(currentWave);
     }
 
     public List<GameObject> GetEnemies() {
@@ -103,7 +110,10 @@ public class EnemyManager : MonoBehaviour {
         // Debug.Log("Enemy " + enemy + " died, worth " + points);
         enemies.Remove(enemy);
         OnEnemyDeath?.Invoke(points);
-        if (enemies.Count == 0) { timeToNextWave = 10f; }
+        if (enemies.Count == 0) { 
+            OnWaveEnded?.Invoke(-1);
+            timeToNextWave = INTRA_WAVE_TIMER;
+        }
     }
 
     public int EnemyCount() {
