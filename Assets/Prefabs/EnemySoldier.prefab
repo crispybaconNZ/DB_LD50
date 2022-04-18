@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2670281640708972962}
   - component: {fileID: 174957503673999470}
   - component: {fileID: 2482516335950733547}
+  - component: {fileID: -6552554157975139550}
   m_Layer: 8
   m_Name: EnemySoldier
   m_TagString: Enemy
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813b882d7dea2df4e9d939dc4576007b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  startingHealth: 10
   speed_: 2
   damage_: 1
   attackSpeed: 0.5
@@ -169,3 +170,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-6552554157975139550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814214021295893226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.55
+  enemyPosition: {x: 0, y: 0, z: 0}
+  barPosition: {x: 0, y: 0, z: 0}

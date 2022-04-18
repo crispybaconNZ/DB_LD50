@@ -61,7 +61,7 @@ public class BuildMenu : MonoBehaviour {
         if (CanAfford()) {
             _costField.text = def.cost.ToString();
         } else {
-            _costField.text = "Too much!";
+            _costField.text = "N/A";
         }
     }
 

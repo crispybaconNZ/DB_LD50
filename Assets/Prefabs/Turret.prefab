@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4817708532221762294}
   - component: {fileID: 7944975976026667076}
   - component: {fileID: 1042480194021810145}
+  - component: {fileID: -9160673779983263322}
   m_Layer: 7
   m_Name: Turret
   m_TagString: Defence
@@ -165,3 +166,17 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5767610915948587510, guid: 6f11269e9993dc84d89c85b9198e432c, type: 3}
   contactDamage: 0
   cost: 50
+--- !u!114 &-9160673779983263322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651460230589904888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.5

@@ -11,7 +11,7 @@ enum SoldierActivity {
 }
 
 public class Soldier : MonoBehaviour {
-    [SerializeField] private int health = 10;
+    public int startingHealth = 10;
     [SerializeField] private float speed_ = 1.0f;
     [SerializeField] private int damage_ = 5;
     [SerializeField] private float attackSpeed = 0.5f;   // seconds between attacks
@@ -21,12 +21,14 @@ public class Soldier : MonoBehaviour {
     private DefenceBuilding attackTarget = null; // what the enemy is attacking
     private SoldierActivity status = SoldierActivity.Walking;
     private float timeSinceLastAttack = 0.0f;
+    private int health;
 
     public class EnemyDiedEvent : UnityEvent<int, GameObject> { }
     public EnemyDiedEvent OnEnemyDied;
 
     private void Awake() {
         if (OnEnemyDied == null) { OnEnemyDied = new EnemyDiedEvent(); }
+        health = startingHealth;
     }
 
     public void SetTarget(Transform target) {
@@ -78,4 +80,6 @@ public class Soldier : MonoBehaviour {
         OnEnemyDied?.Invoke(pointsValue, this.gameObject);
         Destroy(this.gameObject);
     }
+
+    public int GetHealth() { return health; }
 }

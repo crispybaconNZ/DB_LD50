@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 90971614791686480}
   - component: {fileID: 90971614791686483}
   - component: {fileID: 90971614791686482}
+  - component: {fileID: -688107201459690618}
   m_Layer: 0
   m_Name: PlayerBase
   m_TagString: Defence
@@ -145,9 +146,25 @@ MonoBehaviour:
   attackRadius: 1.5
   attackRate: 0.5
   canAttack: 0
+  isTriggered: 0
   firePoint: {fileID: 90971615777419787}
   bulletPrefab: {fileID: 0}
+  contactDamage: 0
   cost: 0
+--- !u!114 &-688107201459690618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90971614791686479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.6
 --- !u!1 &90971615777419787
 GameObject:
   m_ObjectHideFlags: 0

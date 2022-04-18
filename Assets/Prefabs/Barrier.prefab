@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7144010825499184120}
   - component: {fileID: 6722110856564609533}
   - component: {fileID: 4463754411570762056}
+  - component: {fileID: -7241230584671158098}
   m_Layer: 7
   m_Name: Barrier
   m_TagString: Defence
@@ -134,3 +135,17 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   contactDamage: 0
   cost: 20
+--- !u!114 &-7241230584671158098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386190853125064196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.55

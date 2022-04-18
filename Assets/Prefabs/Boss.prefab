@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2646281667577556741}
   - component: {fileID: 5008802907480984328}
   - component: {fileID: 754858296470723353}
+  - component: {fileID: 4254201489428752043}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Enemy
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813b882d7dea2df4e9d939dc4576007b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  startingHealth: 30
   speed_: 2.1
   damage_: 7
   attackSpeed: 0.5
@@ -169,3 +170,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4254201489428752043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2153802125199940230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.55
