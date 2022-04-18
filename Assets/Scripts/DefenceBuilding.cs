@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class DefenceBuilding : MonoBehaviour {
+public class DefenceBuilding : MonoBehaviour, IHealth {
     public int startingHealth = 10;
     public string _name = "building";
     public string _description = "a building";
@@ -32,6 +32,7 @@ public class DefenceBuilding : MonoBehaviour {
     private void Awake() {
         enemyManager = GameObject.Find("EnemyController").GetComponent<EnemyManager>();
         if (OnDefenceDestroyed == null) { OnDefenceDestroyed = new DefenceDestroyed(); }
+
         _currentHealth = startingHealth;
     }
 
@@ -123,4 +124,6 @@ public class DefenceBuilding : MonoBehaviour {
     }
 
     public int GetHealth() { return _currentHealth; }
+
+    public int GetStartingHealth() { return startingHealth; }
 }

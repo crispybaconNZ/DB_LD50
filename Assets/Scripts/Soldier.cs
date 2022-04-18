@@ -10,7 +10,7 @@ enum SoldierActivity {
     Attacking
 }
 
-public class Soldier : MonoBehaviour {
+public class Soldier : MonoBehaviour, IHealth {
     public int startingHealth = 10;
     [SerializeField] private float speed_ = 1.0f;
     [SerializeField] private int damage_ = 5;
@@ -82,4 +82,5 @@ public class Soldier : MonoBehaviour {
     }
 
     public int GetHealth() { return health; }
+    public int GetStartingHealth() {  return startingHealth; }
 }

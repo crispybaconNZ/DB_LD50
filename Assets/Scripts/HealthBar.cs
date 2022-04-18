@@ -6,6 +6,12 @@
  * or Soldier component). It only needs to know this to get the health, the starting health, and listen for the correct events.
  * The health bits should be able to be extracted out with an interface or maybe a superclass of DefenceBuilding and Soldier that 
  * holds everything in common? (Interface is the more composition-friendly way to go.) Not sure about the death events though.
+ * 
+ * Update: created the IHealth interface, which both Soldier and DefenceBuilding implement, so that tidies that part up nicely. The only
+ * part left at the two events, depending on what the type of the object is. Possibly solve by have a UnitDied event that takes no arguments,
+ * and both objects invoke this at the same time as they invoke their current death events.
+ * 
+ * Update 2: No, that doesn't work, because still need to GetComponent<>() with the right type. Generics, maybe?
  */
 
 using UnityEngine;
@@ -29,28 +35,22 @@ public class HealthBar : MonoBehaviour {
         isHostEnemy = GetComponent<Soldier>() != null;
         slider = healthBarInstance.GetComponent<Slider>();
         slider.minValue = 0;
-        slider.maxValue = isHostEnemy ? GetComponent<Soldier>().startingHealth : GetComponent<DefenceBuilding>().startingHealth;
+        slider.maxValue = GetComponent<IHealth>().GetStartingHealth();
+        slider.value = GetComponent<IHealth>().GetHealth();
         
         healthBarInstance.transform.position = Camera.main.WorldToScreenPoint(hostPosition);
-
+       
         if (isHostEnemy) {
             GetComponent<Soldier>().OnEnemyDied.AddListener(EnemyDied);
-            slider.value = GetComponent<Soldier>().GetHealth();
         } else {
             GetComponent<DefenceBuilding>().OnDefenceDestroyed.AddListener(DefenceBuildingDied);
-            slider.value = GetComponent<DefenceBuilding>().GetHealth();
         }
-
     }
 
     void Update() {
         hostPosition = new Vector3(transform.position.x, transform.position.y + healthBarCorrection);
         healthBarInstance.GetComponent<Transform>().position = Camera.main.WorldToScreenPoint(hostPosition);
-        if (isHostEnemy) {
-            slider.value = GetComponent<Soldier>().GetHealth();
-        } else {
-            slider.value = GetComponent<DefenceBuilding>().GetHealth();
-        }
+        slider.value = GetComponent<IHealth>().GetHealth();
     }
 
     private void EnemyDied(int x, GameObject _) {
