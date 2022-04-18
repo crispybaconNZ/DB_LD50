@@ -34,6 +34,6 @@ Lots still to add: see my [Trello board](https://trello.com/invite/b/A681FngS/5f
 
 ## Third-party resources
 ### Fonts
-Advanced Pixel 7 by Style-7 [link](https://www.1001freefonts.com/advanced-pixel-7.font)
-Advanced Pixel LCD 7 by Style-7 [link}(https://www.1001freefonts.com/advanced-pixel-lcd-7.font}
-2015 Cruiser by Pixel Sagas - Neale Davidson [link}(https://www.1001freefonts.com/2015-cruiser.font)
+* Advanced Pixel 7 by Style-7 [link](https://www.1001freefonts.com/advanced-pixel-7.font)
+* Advanced Pixel LCD 7 by Style-7 [link](https://www.1001freefonts.com/advanced-pixel-lcd-7.font}
+* 2015 Cruiser by Pixel Sagas - Neale Davidson [link](https://www.1001freefonts.com/2015-cruiser.font)
