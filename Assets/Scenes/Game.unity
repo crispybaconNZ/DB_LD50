@@ -5522,6 +5522,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 90971614791686478, guid: 1be2b95bc76ec3842a54d792e54ed96f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 90971614791686479, guid: 1be2b95bc76ec3842a54d792e54ed96f, type: 3}
       propertyPath: m_Name
       value: PlayerBase
