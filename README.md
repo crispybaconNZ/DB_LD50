@@ -30,10 +30,10 @@ The game is over if:
 * the player's base building is destroyed.
 
 ## Still to do
-Lots still to add: see my [Trello board|https://trello.com/invite/b/A681FngS/5f6da1b5dd085fcfb7f6cc2fc51db95b/ld50-delaying-the-inevitable]
+Lots still to add: see my [Trello board](https://trello.com/invite/b/A681FngS/5f6da1b5dd085fcfb7f6cc2fc51db95b/ld50-delaying-the-inevitable)
 
 ## Third-party resources
 ### Fonts
-Advanced Pixel 7 by Style-7 [link|https://www.1001freefonts.com/advanced-pixel-7.font]
-Advanced Pixel LCD 7 by Style-7 [link|https://www.1001freefonts.com/advanced-pixel-lcd-7.font]
-2015 Cruiser by Pixel Sagas - Neale Davidson [link|https://www.1001freefonts.com/2015-cruiser.font]
+Advanced Pixel 7 by Style-7 [link](https://www.1001freefonts.com/advanced-pixel-7.font)
+Advanced Pixel LCD 7 by Style-7 [link}(https://www.1001freefonts.com/advanced-pixel-lcd-7.font}
+2015 Cruiser by Pixel Sagas - Neale Davidson [link}(https://www.1001freefonts.com/2015-cruiser.font)
