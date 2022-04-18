@@ -160,6 +160,8 @@ MonoBehaviour:
   attackRadius: 10
   attackRate: 0.6
   canAttack: 1
+  isTriggered: 0
   firePoint: {fileID: 3281764449234084578}
   bulletPrefab: {fileID: 5767610915948587510, guid: 6f11269e9993dc84d89c85b9198e432c, type: 3}
+  contactDamage: 0
   cost: 50

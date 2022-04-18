@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private GameObject countdownTimer;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private GameObject buildMenu;
+    [SerializeField] private TextMeshProUGUI elapsedTimeText;
+    [SerializeField] private TextMeshProUGUI enemiesDestroyedText;
 
     private PlayerManager _playerManager;
     private EnemyManager _enemyManager;
@@ -26,7 +28,7 @@ public class UIManager : MonoBehaviour {
     private void Start() {
         countdownTimer.SetActive(false);
         buildMenu.SetActive(false);
-        scoreText.text = _playerManager.GetScore().ToString();
+        UpdateScore(_playerManager.GetScore());
         gameOverText.enabled = false;
 
         _playerManager.OnBuildMenuOpenClose.AddListener(ShowBuildMenu);
@@ -42,11 +44,11 @@ public class UIManager : MonoBehaviour {
 
     }
 
-    public void UpdateScore(int score) { scoreText.text = score.ToString(); }
+    public void UpdateScore(int score) { scoreText.text = $"{score:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); }
 
-    public void UpdateWave(int wave) {
+    public void UpdateWave(int wave, bool isBossWave = false) {
         if (wave > 0) {
-            waveText.text = wave.ToString();
+            waveText.text = (isBossWave ? "*" : "") + wave.ToString();
             UpdateEnemyCount(_enemyManager.EnemyCount());
         } else {
             waveText.text = "---";
@@ -80,4 +82,17 @@ public class UIManager : MonoBehaviour {
         gameOverText.enabled = true;
     }
     
+    public void UpdateElapsedTime(float time) {
+        elapsedTimeText.text = TimeFloatToString(time);
+    }
+
+    private string TimeFloatToString(float time) {
+        string minutes = Mathf.Floor(time / 60).ToString("00");
+        string seconds = Mathf.Floor(time % 60).ToString("00");
+        return minutes + ":" + seconds;
+    }
+
+    public void UpdateEnemiesDestroyed(int count) {
+        enemiesDestroyedText.text = $"{count:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); 
+    }
 }

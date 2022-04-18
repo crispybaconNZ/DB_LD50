@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] private Color cantPlaceColour = Color.red;
     private int score;
     private float timeSinceLastUpdate;
+    private float elapsedTime;
     private PlayerMode currentMode = PlayerMode.Viewing;
     private GameObject currentDefence = null;  // current defence being placed (if any)
     private Transform defencesContainer;
@@ -26,6 +27,7 @@ public class PlayerManager : MonoBehaviour {
     private EnemyManager enemyManager;
     private DefenceBuilding defence = null;
     private DBGrid<GameObject> _grid;
+    private int _enemiesDestroyed = 0;
    
     public class ScoreEvent : UnityEvent<int> { }
     public ScoreEvent OnScoreChanged;
@@ -53,6 +55,7 @@ public class PlayerManager : MonoBehaviour {
         uiManager = GameObject.Find("UI").GetComponent<UIManager>();
         enemyManager = GameObject.Find("EnemyController").GetComponent<EnemyManager>();
         timeSinceLastUpdate = 2.0f;
+        elapsedTime = 0f;
 
         _grid = new DBGrid<GameObject>(50, 10, 1f, new Vector3(-5f, -5f), () => { return null; });
 
@@ -76,7 +79,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void AddToScore(int points) {
         if (points < 0) {
-            RemoveFromScore(Mathf.Abs(points));
+            SubtractFromScore(Mathf.Abs(points));
             return;
         }
 
@@ -86,7 +89,7 @@ public class PlayerManager : MonoBehaviour {
         OnScoreChanged?.Invoke(score);
     }
 
-    public void RemoveFromScore(int points) {
+    public void SubtractFromScore(int points) {
         score -= points;
 
         if (score < 0) { score = 0; }
@@ -100,6 +103,8 @@ public class PlayerManager : MonoBehaviour {
 
     private void Update() {
         timeSinceLastUpdate -= Time.deltaTime;
+        elapsedTime += Time.deltaTime;
+        uiManager.UpdateElapsedTime(elapsedTime);
         /*
         if (timeSinceLastUpdate < 0.0f) {
             // reduce score by timer
@@ -146,7 +151,7 @@ public class PlayerManager : MonoBehaviour {
                     pos = _grid.SnapToGridMidPoint(pos);
 
                     defence.OnDefenceDestroyed.AddListener(DefenceDestroyed);
-                    RemoveFromScore(defence.cost);
+                    SubtractFromScore(defence.cost);
                     defence.transform.SetParent(defencesContainer);
                     defences.Add(defence);
 
@@ -198,6 +203,8 @@ public class PlayerManager : MonoBehaviour {
 
     public void EnemyDied(int points) {
         AddToScore(points);
+        _enemiesDestroyed++;
+        uiManager.UpdateEnemiesDestroyed(_enemiesDestroyed);
     }
 
     public void DefenceDestroyed(Vector3 pos) {
@@ -205,6 +212,6 @@ public class PlayerManager : MonoBehaviour {
         // starting health from score
         DefenceBuilding defence = _grid.GetValue(pos).GetComponent<DefenceBuilding>();       
         _grid.SetValue(pos, null);
-        RemoveFromScore(defence.startingHealth);
+        SubtractFromScore(defence.startingHealth);
     }
 }

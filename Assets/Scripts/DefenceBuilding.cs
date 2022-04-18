@@ -38,7 +38,7 @@ public class DefenceBuilding : MonoBehaviour {
     void Start() {
         enemyManager.OnWaveStarted.AddListener(GetEnemies);
         timeSinceLastAttack = attackRate;
-        GetEnemies(0);
+        GetEnemies(0, false);
     }
 
     public void DoDamage(int damage) {
@@ -56,6 +56,10 @@ public class DefenceBuilding : MonoBehaviour {
     }
 
     private void Update() {
+        if (target != null) {
+            // gizmo: draw a line from the defence to its current target
+            Debug.DrawLine(this.transform.position, target.transform.position, Color.magenta);
+        }
         if (isTriggered) {
             // this type of defence building waits for an enemy to get close then delivers a lot of damage to the target
             SetNearestTarget(true);
@@ -86,9 +90,7 @@ public class DefenceBuilding : MonoBehaviour {
         }
     }
 
-    private void GetEnemies(int i) {
-        targetList = enemyManager.GetEnemies();
-    }
+    private void GetEnemies(int i, bool _) { targetList = enemyManager.GetEnemies(); }
 
     private void ShootAttack() {
         // attack the current target if it's within range
@@ -112,17 +114,12 @@ public class DefenceBuilding : MonoBehaviour {
     private void TriggerAttack() {
         if (target == null) { return; }
         float distance = Vector2.Distance(target.transform.position, this.transform.position);
-        Debug.DrawLine(this.transform.position, target.transform.position, Color.magenta);
-        Debug.Log("Distance to " + target + " = " + distance);
+        
         if (distance <= attackRadius) {
             Soldier s = target.GetComponent<Soldier>();
             s.TakeHit(contactDamage);
             DoDamage(1);
         }
-    }
-
-    public void HasCollided(Soldier enemy) {
-
     }
 
     public int GetHealth() { return _currentHealth; }

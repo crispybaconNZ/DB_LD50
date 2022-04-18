@@ -46,7 +46,7 @@ public class Soldier : MonoBehaviour {
                 this.transform.position += Vector3.left * speed_ * Time.deltaTime;
             }
 
-            if (this.transform.position.x <= -5) { Destroy(this.gameObject); }
+            if (this.transform.position.x <= -10) { Destroy(this.gameObject); }  // destroy if gone off left-edge of play area
         } else if (status == SoldierActivity.Attacking) {
             if (attackTarget != null) {
                 if (timeSinceLastAttack >= attackSpeed) {

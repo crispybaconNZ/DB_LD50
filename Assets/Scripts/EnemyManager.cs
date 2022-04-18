@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour {
     private readonly float START_GAME_TIMER = 10f;
     private readonly float INTRA_WAVE_TIMER = 15f;
 
-    public class WaveEvent : UnityEvent<int> { }
+    public class WaveEvent : UnityEvent<int, bool> { }
     public WaveEvent OnWaveStarted;
     public WaveEvent OnWaveEnded;
 
@@ -40,14 +40,12 @@ public class EnemyManager : MonoBehaviour {
         // if there are no enemies, and the timeToNextWave has ticked down, create a wave
         if (enemies.Count == 0) {
             timeToNextWave -= Time.deltaTime;
-            // Debug.Log("Time to next wave: " + timeToNextWave + " seconds");
             uiManager.SetCountdown(timeToNextWave);
             if (timeToNextWave < 0) {
                 CreateWave();
             }
-            OnWaveStarted?.Invoke(currentWave);
+            OnWaveStarted?.Invoke(currentWave, IsBossWave());
         } else {
-            // Debug.Log("Enemies left: " + enemies.Count);
             uiManager.SetCountdown(-1f);
         }
     }
@@ -65,10 +63,8 @@ public class EnemyManager : MonoBehaviour {
         currentWave++;
 
         // add soldiers
-        int numEnemies = 10;    // base
-        // add another enemy for every 2nd level
-        numEnemies += (currentWave - 1) / 2;
-        Debug.Log("Creating wave " + currentWave + " with " + numEnemies + " enemies");
+        int numEnemies = 10;    // base        
+        numEnemies += (currentWave - 1) / 2;  // add another enemy for every 2nd level
 
         for (int i = 0; i < numEnemies; i++) {
             Vector3 spawnAt = spawnpoint.position;
@@ -82,10 +78,9 @@ public class EnemyManager : MonoBehaviour {
             enemies.Add(enemy);
         }
 
-        if (currentWave % 5 == 0) {
+        if (IsBossWave()) {
             // boss wave
             int numBosses = currentWave / 5;
-            Debug.Log("Adding " + numBosses + " bosses");
 
             for (int i = 0; i < numBosses; i++) {
                 Vector3 spawnAt = spawnpoint.position;
@@ -99,7 +94,7 @@ public class EnemyManager : MonoBehaviour {
             }
         }
 
-        OnWaveStarted?.Invoke(currentWave);
+        OnWaveStarted?.Invoke(currentWave, IsBossWave());
     }
 
     public List<GameObject> GetEnemies() {
@@ -107,16 +102,15 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void EnemyDied(int points, GameObject enemy) {
-        // Debug.Log("Enemy " + enemy + " died, worth " + points);
         enemies.Remove(enemy);
         OnEnemyDeath?.Invoke(points);
         if (enemies.Count == 0) { 
-            OnWaveEnded?.Invoke(-1);
+            OnWaveEnded?.Invoke(-1, false);
             timeToNextWave = INTRA_WAVE_TIMER;
         }
     }
 
-    public int EnemyCount() {
-        return enemies.Count;
-    }
+    public int EnemyCount() { return enemies.Count; }
+
+    private bool IsBossWave() { return currentWave % 5 == 0; }
 }
