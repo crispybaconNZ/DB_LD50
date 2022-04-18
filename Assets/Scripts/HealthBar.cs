@@ -1,5 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * Adds health bars for enemies and defences.
+ * Based on code from here: https://forum.unity.com/threads/2d-ui-healthbar-follow-player.708962/ by JapanDoudou_fr
+ * 
+ * Needs some improvements, it's still very heavily dependent on knowing the type of the host (whether it's got a DefenceBuilding
+ * or Soldier component). It only needs to know this to get the health, the starting health, and listen for the correct events.
+ * The health bits should be able to be extracted out with an interface or maybe a superclass of DefenceBuilding and Soldier that 
+ * holds everything in common? (Interface is the more composition-friendly way to go.) Not sure about the death events though.
+ */
+
 using UnityEngine;
 using UnityEngine.UI;
 
