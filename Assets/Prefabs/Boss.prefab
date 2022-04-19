@@ -104,6 +104,7 @@ MonoBehaviour:
   damage_: 7
   attackSpeed: 0.5
   pointsValue: 30
+  explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
 --- !u!50 &2646281667577556741
 Rigidbody2D:
   serializedVersion: 4

@@ -1083,6 +1083,8 @@ MonoBehaviour:
   canPlaceColour: {r: 0, g: 1, b: 0, a: 1}
   cantPlaceColour: {r: 1, g: 0, b: 0, a: 0.5019608}
   playerData: {fileID: 11400000, guid: a9c55d3be9b921f49b116753f4c3c0be, type: 2}
+  explosion: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
+  placementPuff: {fileID: 7762883941001076756, guid: 345d233a59002ea43a2365eea1fa916a, type: 3}
 --- !u!61 &293152114
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1131,6 +1133,7 @@ MonoBehaviour:
   isTriggered: 0
   firePoint: {fileID: 1782189610}
   bulletPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
   contactDamage: 0
   cost: 0
 --- !u!1 &296260844

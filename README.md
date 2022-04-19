@@ -33,13 +33,13 @@ The game is over if:
 Lots still to add: see my [Trello board](https://trello.com/invite/b/A681FngS/5f6da1b5dd085fcfb7f6cc2fc51db95b/ld50-delaying-the-inevitable).
 
 ## That gnarly bug...
-On the first attempt to produce a standalone Windows x86_64 build, an unusual bug appeared: the player couldn't open the build menu; three UI elements -- the time elapsed, the enemies destroyed, and the score -- were not being updated; and the Game-Over condition was never getting triggered.
+On the first attempt to produce a standalone *Windows* x86_64 build, an unusual bug appeared: the player couldn't open the build menu; three UI elements -- the time elapsed, the enemies destroyed, and the score -- were not being updated; and the Game-Over condition was never getting triggered.
 
 My first thought was it was a problem with the new Unity Input System, but however much I tinkered with it, I couldn't get it to change its mind, the controls to scroll the view left and right still worked, and it didn't explain why some UI elements weren't working.
 
-I next suspected that maybe it was something to do with UnityEvents, but only a couple of things were using UnityEvents.
+I next suspected that maybe it was something to do with `UnityEvent`s, but only a couple of things were using `UnityEvent`s.
 
-I then compared the bits that worked to the bits that didn't, and everything that wasn't working could be tied back to the PlayerManager class: it relied on an event invoked by the PlayerManager; it needed PlayerManager to listen for an event; or PlayerManager needed to do something during its Update() method. All the things that worked didn't touch the PlayerManager class to do their thing.
+I then compared the bits that worked to the bits that didn't, and everything that wasn't working could be tied back to the `PlayerManager` class: it relied on an event invoked by the `PlayerManager`; it needed `PlayerManager` to listen for an event; or `PlayerManager` needed to do something during its `Update()` method. All the things that worked didn't touch the `PlayerManager` class.
 
 I generated a Development Build (in hindsight, I probably should've done this first) which threw up a `NullReferenceException` in the development log. Checking the log file, and the exception was occuring in ... `PlayerManager.Awake()`. Specifically, the line: `this.GetComponent<DefenceBuilding>().OnDefenceDestroyed.AddListener(GameOver);` the `OnDefenceDestroyed` event was set up in the `DefenceBuilding.Awake()` method. I moved the offending line to `PlayerManager.Start()` *et voilá*, the problem went away.
 

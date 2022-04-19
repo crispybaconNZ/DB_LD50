@@ -14,6 +14,7 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
     [SerializeField] private bool isTriggered = false;
     [SerializeField] private GameObject firePoint = null;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private int contactDamage = 0;
     private int _currentHealth;
     public int cost = 10;
@@ -47,6 +48,9 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
         _currentHealth -= damage;
 
         if (_currentHealth <= 0) {
+            GameObject explosion = Instantiate(explosionPrefab, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, GameObject.Find("UI").transform);
+            Destroy(explosion, 11 / 30f);
+
             OnDefenceDestroyed?.Invoke(this.transform.position);
             Destroy(this.gameObject);
         }

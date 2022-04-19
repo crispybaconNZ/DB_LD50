@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-
+using System.Collections;
 
 public class UIManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -68,9 +68,7 @@ public class UIManager : MonoBehaviour {
 
     private void ShowGameOver() {
         gameOverText.enabled = true;
-        Utils.Delay(2);
-        SceneManager.LoadScene("Game Over");
-        
+        StartCoroutine(GameOverScreenAfterDelay());
     }
     
     public void UpdateElapsedTime(float time) {
@@ -85,5 +83,10 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateEnemiesDestroyed(int count) {
         enemiesDestroyedText.text = $"{count:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); 
+    }
+
+    IEnumerator GameOverScreenAfterDelay() {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Game Over");
     }
 }

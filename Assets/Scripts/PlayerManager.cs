@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 enum PlayerMode {
@@ -15,6 +16,9 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] private Color canPlaceColour = Color.green;
     [SerializeField] private Color cantPlaceColour = Color.red;
     [SerializeField] private PlayerDataSO playerData;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private GameObject placementPuff;
+
     private int score;
     //private float timeSinceLastUpdate;
     private float elapsedTime;
@@ -44,7 +48,6 @@ public class PlayerManager : MonoBehaviour {
     public BuildMenuOpenEvent OnBuildMenuOpenClose;
 
     private void Awake() {
-        Debug.Log("PlayerManager.Awake()");
         score = 100;
         scorePeak = 100;
         if (OnScoreChanged == null) { OnScoreChanged = new ScoreEvent(); }
@@ -154,6 +157,10 @@ public class PlayerManager : MonoBehaviour {
                     defence.transform.SetParent(defencesContainer);
                     defences.Add(defence);
 
+                    // play the placement puff animation
+                    Vector3 position = Camera.main.WorldToScreenPoint(defence.transform.position - new Vector3(0.5f, 0.25f));
+                    GameObject puff = Instantiate(placementPuff, position, Quaternion.identity, GameObject.Find("UI").transform);
+                    Destroy(puff, 8 / 15f);
 
                     currentDefence = null;
                     currentMode = PlayerMode.Viewing;

@@ -16,6 +16,7 @@ public class Soldier : MonoBehaviour, IHealth {
     [SerializeField] private int damage_ = 5;
     [SerializeField] private float attackSpeed = 0.5f;   // seconds between attacks
     [SerializeField] private int pointsValue = 10;
+    [SerializeField] private GameObject explosionPrefab;
 
     private Transform target_;   // where the enemy is trying to get to
     private DefenceBuilding attackTarget = null; // what the enemy is attacking
@@ -77,7 +78,9 @@ public class Soldier : MonoBehaviour, IHealth {
     }
 
     public void Die() {
-        OnEnemyDied?.Invoke(pointsValue, this.gameObject);
+        GameObject explosion = Instantiate(explosionPrefab, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, GameObject.Find("UI").transform);
+        Destroy(explosion, 11 / 30f);
+        OnEnemyDied?.Invoke(pointsValue, this.gameObject);        
         Destroy(this.gameObject);
     }
 

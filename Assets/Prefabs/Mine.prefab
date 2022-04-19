@@ -132,5 +132,6 @@ MonoBehaviour:
   isTriggered: 1
   firePoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
   contactDamage: 10
   cost: 15

@@ -158,12 +158,13 @@ MonoBehaviour:
   _name: Turret
   _description: Fixed emplacement that fires a low-powered projectile at the nearest
     enemy. Will only choose a new enemy once the current target is destroyed.
-  attackRadius: 10
+  attackRadius: 5
   attackRate: 0.6
   canAttack: 1
   isTriggered: 0
   firePoint: {fileID: 3281764449234084578}
   bulletPrefab: {fileID: 5767610915948587510, guid: 6f11269e9993dc84d89c85b9198e432c, type: 3}
+  explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
   contactDamage: 0
   cost: 50
 --- !u!114 &-9160673779983263322
