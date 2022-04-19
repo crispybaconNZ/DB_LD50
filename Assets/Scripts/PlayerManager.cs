@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] private Color cantPlaceColour = Color.red;
     [SerializeField] private PlayerDataSO playerData;
     private int score;
-    private float timeSinceLastUpdate;
+    //private float timeSinceLastUpdate;
     private float elapsedTime;
     private PlayerMode currentMode = PlayerMode.Viewing;
     private GameObject currentDefence = null;  // current defence being placed (if any)
@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour {
     public BuildMenuOpenEvent OnBuildMenuOpenClose;
 
     private void Awake() {
+        Debug.Log("PlayerManager.Awake()");
         score = 100;
         scorePeak = 100;
         if (OnScoreChanged == null) { OnScoreChanged = new ScoreEvent(); }
@@ -51,13 +52,12 @@ public class PlayerManager : MonoBehaviour {
         if (OnGameOver == null) { OnGameOver = new GameOverEvent(); }
         if (OnBuildMenuOpenClose == null) { OnBuildMenuOpenClose = new BuildMenuOpenEvent(); }
 
-
         playerControls = new PlayerControls();
         cam = Camera.main;
         defences = new List<DefenceBuilding>();
         uiManager = GameObject.Find("UI").GetComponent<UIManager>();
         enemyManager = GameObject.Find("EnemyController").GetComponent<EnemyManager>();
-        timeSinceLastUpdate = 2.0f;
+        // timeSinceLastUpdate = 2.0f;
         elapsedTime = 0f;
 
         _grid = new DBGrid<GameObject>(50, 10, 1f, new Vector3(-5f, -5f), () => { return null; });
@@ -65,7 +65,6 @@ public class PlayerManager : MonoBehaviour {
         // add player base to the grid
         this.transform.position = new Vector3(-3.5f, 0.5f);
         _grid.SetValue(this.transform.position, this.gameObject);
-        this.GetComponent<DefenceBuilding>().OnDefenceDestroyed.AddListener(GameOver);
 
         // add the starting turret to the grid
         GameObject startingTurret = GameObject.Find("Starting Turret");
@@ -78,6 +77,7 @@ public class PlayerManager : MonoBehaviour {
     private void Start() {
         enemyManager.OnEnemyDeath.AddListener(EnemyDied);
         this.OnDefenceSelected.AddListener(SetCurrentDefence);
+        this.GetComponent<DefenceBuilding>().OnDefenceDestroyed.AddListener(GameOver);
     }
 
     public void AddToScore(int points) {
@@ -107,30 +107,22 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Update() {
-        timeSinceLastUpdate -= Time.deltaTime;
+        // timeSinceLastUpdate -= Time.deltaTime;
         elapsedTime += Time.deltaTime;
         uiManager.UpdateElapsedTime(elapsedTime);
         if (scorePeak < score) { scorePeak = score; }
 
-        /*
-        if (timeSinceLastUpdate < 0.0f) {
-            // reduce score by timer
-            RemoveFromScore(2);
-            timeSinceLastUpdate = 2.0f;
-        }*/
-
-        if (currentMode == PlayerMode.Viewing) {
-            if (playerControls.Player.BuildMenu.WasPerformedThisFrame()) {
-                OnBuildMenuOpenClose?.Invoke(true);
-            }
+        if (playerControls.Player.BuildMenu.WasPerformedThisFrame()) {
+            OnBuildMenuOpenClose?.Invoke(true);
         } else if (currentMode == PlayerMode.PlacingDefence) {
-            OldDefenceMenuCode();
+            DefenceMenu();
         } else if (currentMode == PlayerMode.GameOver) {
-
+            // do nothing
         }
     }
 
-    private void OldDefenceMenuCode() {
+    // this should probably be in the Build Menu's script
+    private void DefenceMenu() {
         if (currentDefence != null) {
             Vector3 pos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             pos = _grid.SnapToGridMidPoint(pos);
@@ -168,7 +160,7 @@ public class PlayerManager : MonoBehaviour {
                     uiManager.ClearMessage();
                     defence = null;
                 }
-            } else if (playerControls.Player.Cancel.WasPerformedThisFrame()) {
+            } else if (playerControls.Player.Cancel.WasPerformedThisFrame() || playerControls.Player.BuildMenu.WasPerformedThisFrame()) {
                 // player clicked the right mouse button or pressed the Esc key so cancel placement
                 currentDefence = null;
                 currentMode = PlayerMode.Viewing;
@@ -177,7 +169,6 @@ public class PlayerManager : MonoBehaviour {
                 defence = null;
             }
         }
-
     }
 
     public void SetCurrentDefence(GameObject defence) {

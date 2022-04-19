@@ -12,13 +12,14 @@ public class BuildMenu : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI _costField;
     [SerializeField] private TextMeshProUGUI _pageField;
     [SerializeField] private Image _imageField;
+    [SerializeField] private PlayerManager _playerManager;
 
     private int currentlySelectedDefence = 0;   // keep track of the last defence the player had selected in the menu
-    private PlayerManager _playerManager;
+    
     private UIManager _uiManager;
 
     void Start() {
-        _playerManager = GameObject.Find("PlayerBase").GetComponent<PlayerManager>();
+        // _playerManager = GameObject.Find("PlayerBase").GetComponent<PlayerManager>();
         _uiManager = GameObject.Find("UI").GetComponent<UIManager>();
         DefenceBuilding db = defenceBuildingPrefabs[currentlySelectedDefence].GetComponent<DefenceBuilding>();
         SetDefenceBuilding(db);
@@ -47,7 +48,7 @@ public class BuildMenu : MonoBehaviour {
             _uiManager.ShowBuildMenu(false);
         }
         
-        if (_playerManager.playerControls.Player.Cancel.WasPerformedThisFrame() || _playerManager.playerControls.Player.BuildMenu.WasPerformedThisFrame()) {
+        if (_playerManager.playerControls.Player.Cancel.WasPerformedThisFrame()) {
             _uiManager.ShowBuildMenu(false);
         }
         
