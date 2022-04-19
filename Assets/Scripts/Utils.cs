@@ -15,6 +15,17 @@ public class Utils {
         return CreateWorldText(parent, text, localPosition, fontSize, (Color)colour, textAnchor, textAlignment, sortingOrder);
     }
 
+    public static void Delay(int seconds) {
+        if (seconds <= 0) { return; }
+
+        float elapsedTime = 0f;
+        while (elapsedTime <= seconds) {
+            elapsedTime += Time.deltaTime;
+        }
+
+        return;
+    }
+
     public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, int fontSize, Color colour, TextAnchor textAnchor,
         TextAlignment textAlignment, int sortingOrder) {
         GameObject gameObject = new GameObject("World Text", typeof(TextMesh));

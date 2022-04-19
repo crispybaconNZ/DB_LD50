@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
@@ -16,16 +14,10 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private GameObject buildMenu;
     [SerializeField] private TextMeshProUGUI elapsedTimeText;
     [SerializeField] private TextMeshProUGUI enemiesDestroyedText;
+    [SerializeField] private PlayerManager _playerManager;
+    [SerializeField] private EnemyManager _enemyManager;
 
-    private PlayerManager _playerManager;
-    private EnemyManager _enemyManager;
-
-    private void Awake() {
-        _playerManager = GameObject.Find("PlayerBase").GetComponent<PlayerManager>();
-        _enemyManager = GameObject.Find("EnemyController").GetComponent<EnemyManager>();
-    }
-
-    private void Start() {
+    private void Start() {        
         countdownTimer.SetActive(false);
         buildMenu.SetActive(false);
         UpdateScore(_playerManager.GetScore());
@@ -38,10 +30,6 @@ public class UIManager : MonoBehaviour {
         _enemyManager.OnWaveStarted.AddListener(UpdateWave);
         _enemyManager.OnWaveEnded.AddListener(UpdateWave);
         _enemyManager.OnEnemyDeath.AddListener(UpdateEnemyCount);
-    }
-
-    public void Update() {
-
     }
 
     public void UpdateScore(int score) { scoreText.text = $"{score:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); }
@@ -80,6 +68,9 @@ public class UIManager : MonoBehaviour {
 
     private void ShowGameOver() {
         gameOverText.enabled = true;
+        Utils.Delay(2);
+        SceneManager.LoadScene("Game Over");
+        
     }
     
     public void UpdateElapsedTime(float time) {

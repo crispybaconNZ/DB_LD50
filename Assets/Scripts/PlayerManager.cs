@@ -14,6 +14,7 @@ enum PlayerMode {
 public class PlayerManager : MonoBehaviour {
     [SerializeField] private Color canPlaceColour = Color.green;
     [SerializeField] private Color cantPlaceColour = Color.red;
+    [SerializeField] private PlayerDataSO playerData;
     private int score;
     private float timeSinceLastUpdate;
     private float elapsedTime;
@@ -28,6 +29,7 @@ public class PlayerManager : MonoBehaviour {
     private DefenceBuilding defence = null;
     private DBGrid<GameObject> _grid;
     private int _enemiesDestroyed = 0;
+    private int scorePeak;  // highest the player's score reaches 
    
     public class ScoreEvent : UnityEvent<int> { }
     public ScoreEvent OnScoreChanged;
@@ -43,6 +45,7 @@ public class PlayerManager : MonoBehaviour {
 
     private void Awake() {
         score = 100;
+        scorePeak = 100;
         if (OnScoreChanged == null) { OnScoreChanged = new ScoreEvent(); }
         if (OnDefenceSelected == null) { OnDefenceSelected = new DefenceEvent(); }
         if (OnGameOver == null) { OnGameOver = new GameOverEvent(); }
@@ -83,6 +86,8 @@ public class PlayerManager : MonoBehaviour {
             return;
         }
 
+        if (score > scorePeak) { scorePeak = score; }
+
         score += points;
 
         // send ScoreChanged event
@@ -105,6 +110,8 @@ public class PlayerManager : MonoBehaviour {
         timeSinceLastUpdate -= Time.deltaTime;
         elapsedTime += Time.deltaTime;
         uiManager.UpdateElapsedTime(elapsedTime);
+        if (scorePeak < score) { scorePeak = score; }
+
         /*
         if (timeSinceLastUpdate < 0.0f) {
             // reduce score by timer
@@ -180,14 +187,9 @@ public class PlayerManager : MonoBehaviour {
 
     public void GameOver(Vector3 _ = default) {
         uiManager.UpdateScore(score);
-        if (score <= 0) {
-            uiManager.SetMessage("You ran out of points!");
-        } else if (GetComponent<DefenceBuilding>().GetHealth() <= 0) {
-            uiManager.SetMessage("Your base was destroyed!");
-        } else {
-            uiManager.SetMessage("WTF? Something else caused your demise?!");
-        }
+        uiManager.SetMessage(GameOverReason());
         currentMode = PlayerMode.GameOver;
+        PopulatePlayerData();
         OnGameOver?.Invoke();
     }
 
@@ -199,7 +201,10 @@ public class PlayerManager : MonoBehaviour {
         playerControls.Disable();
     }
 
-    public int GetScore() { return score; }
+    public int GetScore() { 
+        if (scorePeak < score) { scorePeak = score; }
+        return score;
+    }
 
     public void EnemyDied(int points) {
         AddToScore(points);
@@ -213,5 +218,25 @@ public class PlayerManager : MonoBehaviour {
         DefenceBuilding defence = _grid.GetValue(pos).GetComponent<DefenceBuilding>();       
         _grid.SetValue(pos, null);
         SubtractFromScore(defence.startingHealth);
+    }
+
+    private void PopulatePlayerData() {
+        if (playerData == null) { return; }
+
+        playerData.enemiesDestroyed = _enemiesDestroyed;
+        playerData.scorePeak = scorePeak;
+        playerData.score = score;
+        playerData.timeAlive = elapsedTime;
+        playerData.reason = GameOverReason();
+    }
+
+    private string GameOverReason() {
+        if (score <= 0) {
+            return "You ran out of points!";
+        } else if (GetComponent<DefenceBuilding>().GetHealth() <= 0) {
+            return "Your base was destroyed!";
+        } else {
+            return "WTF? Something else caused your demise?!";
+        }
     }
 }
