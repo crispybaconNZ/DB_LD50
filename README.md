@@ -14,6 +14,13 @@ Every fifth wave, (current wave / 5) boss enemies are added to the wave. These a
 
 The player's score is increased for each enemy destroyed (bosses are worth more).
 
+### Enemies
+Enemies in the game so far:
+* soldiers: regular, red-coloured tanks; trundle across the map and melee defences
+* bosses: green-coloured tanks; behave the same way as soldiers but have more hit points and do more damage
+* buggies: very fast, lightly armed and armoured vehicles that can get in quick and do damage before defences realise they are there
+* shooty tanks: blue-coloured tanks; behave much the same way as soldiers and bosses, but are able to do damage at range
+
 ### Defences
 To counter the enemy waves, the player puts down defences in a grid (only one defence per grid square). The player "pays" for these with their score, so the player can only place defences as long as they have enough to pay for that defence. The player cannot reduce their score to zero.
 
@@ -23,6 +30,7 @@ Defences available in the game so far:
 * turrets: fire at enemies
 * barriers: block enemies' progress
 * mines: do a large amount of damage to an enemy that comes into contact with the mine.
+* sniper towers: slow rate-of-fire but enormous range and damage
 
 ### Game Over conditions
 The game is over if:
