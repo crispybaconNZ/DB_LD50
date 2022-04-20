@@ -48,16 +48,19 @@ public class HealthBar : MonoBehaviour {
     }
 
     void Update() {
+        if (healthBarInstance == null || healthBarInstance.GetComponent<Transform>() == null) { return; }
         hostPosition = new Vector3(transform.position.x, transform.position.y + healthBarCorrection);
         healthBarInstance.GetComponent<Transform>().position = Camera.main.WorldToScreenPoint(hostPosition);
         slider.value = GetComponent<IHealth>().GetHealth();
     }
 
     private void EnemyDied(int x, GameObject _) {
-        Destroy(healthBarInstance);
+        if (healthBarInstance != null)
+            Destroy(healthBarInstance);
     }
 
     private void DefenceBuildingDied(Vector3 _) {
-        Destroy(healthBarInstance);
+        if (healthBarInstance != null)
+            Destroy(healthBarInstance);
     }
 }

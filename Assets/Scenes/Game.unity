@@ -704,6 +704,7 @@ MonoBehaviour:
   - {fileID: 4651460230589904888, guid: 34ba7fcab5fb1b44db66b72f4c6d15fd, type: 3}
   - {fileID: 6386190853125064196, guid: 0a07cc780951d484a88a08e00ef26bcf, type: 3}
   - {fileID: 8987586996718731284, guid: 0790b259ef2748e4aae94ac31841a689, type: 3}
+  - {fileID: 5681077656821662378, guid: 741dba7e5be6cae47af026206d9966ca, type: 3}
   _nameField: {fileID: 1254111041}
   _nameShadowField: {fileID: 1155330381}
   _descriptionField: {fileID: 1261480329}
@@ -979,6 +980,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263565826}
   m_CullTransparentMesh: 1
+--- !u!1 &281957610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 281957612}
+  - component: {fileID: 281957611}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &281957611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281957610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332e57d5767aa8f46ae8f4d4486d1294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: explosion
+    clip: {fileID: 8300000, guid: 8bf740f5b310a0e4b8a132a5019b959f, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: gunfire
+    clip: {fileID: 8300000, guid: d5b02d2b48716fa4f8777ede101a513a, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: defencePlaced
+    clip: {fileID: 8300000, guid: bde6debb652d8d94e8dfd5a6a48899b8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+--- !u!4 &281957612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281957610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &293152110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54ff57f13b1e664d95d47dfe5aef52d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 10
+  startingHealth: 100
   _name: Home Base
   _description: Your home base. Defend this at all costs! The game is over if your
     base is destroyed.
@@ -1774,6 +1834,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soldierPrefab: {fileID: 3814214021295893226, guid: d7e335cb63d1f47419a8bf6b75856d18, type: 3}
   bossPrefab: {fileID: 2153802125199940230, guid: 2b6e45f798187834b902376a852fec00, type: 3}
+  buggyPrefab: {fileID: 1031347703957852361, guid: f374e0d9922104849af33142fc77b27e, type: 3}
+  shootyTankPrefab: {fileID: 4008589664340038455, guid: 33e9270da275dc24a976d3662063cca3, type: 3}
 --- !u!1001 &615586835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1781,6 +1843,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 296260845}
     m_Modifications:
+    - target: {fileID: 1042480194021810145, guid: 34ba7fcab5fb1b44db66b72f4c6d15fd, type: 3}
+      propertyPath: destructionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8bf740f5b310a0e4b8a132a5019b959f, type: 3}
     - target: {fileID: 4651460230589904888, guid: 34ba7fcab5fb1b44db66b72f4c6d15fd, type: 3}
       propertyPath: m_Name
       value: Starting Turret

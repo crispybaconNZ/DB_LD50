@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8987586996718731281}
   - component: {fileID: 8987586996718731282}
   - component: {fileID: 8987586996718731283}
+  - component: {fileID: 5416510622825651873}
   m_Layer: 7
   m_Name: Mine
   m_TagString: Defence
@@ -135,3 +136,22 @@ MonoBehaviour:
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
   contactDamage: 10
   cost: 15
+--- !u!95 &5416510622825651873
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987586996718731284}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2674f7104dceb6644a8f0a98dba85fce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -60,7 +60,7 @@ public class BuildMenu : MonoBehaviour {
         _imageField.sprite = def.gameObject.GetComponent<SpriteRenderer>().sprite;
         _descriptionField.text = def._description;
         if (CanAfford()) {
-            _costField.text = def.cost.ToString();
+            _costField.text = def.GetCost().ToString();
         } else {
             _costField.text = "N/A";
         }
@@ -71,6 +71,6 @@ public class BuildMenu : MonoBehaviour {
     }
 
     private bool CanAfford() {
-        return defenceBuildingPrefabs[currentlySelectedDefence].GetComponent<DefenceBuilding>().cost < _playerManager.GetScore();
+        return defenceBuildingPrefabs[currentlySelectedDefence].GetComponent<DefenceBuilding>().GetCost() < _playerManager.GetScore();
     }
 }

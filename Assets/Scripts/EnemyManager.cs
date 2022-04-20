@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemyManager : MonoBehaviour {
-    private List<GameObject> enemies;
-    private int currentWave = 0;
     [SerializeField] private GameObject soldierPrefab;
     [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private GameObject buggyPrefab;
+    [SerializeField] private GameObject shootyTankPrefab;
+
+    private List<GameObject> enemies;
+    private int currentWave = 0;
     private Transform spawnpoint;
     private float timeToNextWave;
     private Transform attackPoint;
@@ -51,6 +54,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     private void CreateWave() {
+        uiManager.ClearMessage();
         // make sure enemies list is empty
         if (enemies.Count > 0) {
             foreach (GameObject enemy in enemies) {
@@ -62,13 +66,22 @@ public class EnemyManager : MonoBehaviour {
         // increment wave counter
         currentWave++;
 
-        // add soldiers
+        // add enemies
+        // AddNormalSoldiers();
+        AddBosses();
+        AddFastAttack();
+        AddShootyTanks();
+
+        OnWaveStarted?.Invoke(currentWave, IsBossWave());
+    }
+
+    private void AddNormalSoldiers() {
         int numEnemies = 10;    // base        
         numEnemies += (currentWave - 1) / 2;  // add another enemy for every 2nd level
 
         for (int i = 0; i < numEnemies; i++) {
             Vector3 spawnAt = spawnpoint.position;
-            spawnAt += new Vector3(Random.value * 2, (Random.value * 10) - 5, 0);  
+            spawnAt += new Vector3(Random.value * 2, (Random.value * 10) - 5, 0);
 
             GameObject enemy = Instantiate<GameObject>(soldierPrefab, spawnAt, Quaternion.identity);
             Soldier s = enemy.GetComponent<Soldier>();
@@ -77,9 +90,10 @@ public class EnemyManager : MonoBehaviour {
             s.OnEnemyDied.AddListener(EnemyDied);
             enemies.Add(enemy);
         }
+    }
 
+    private void AddBosses() {
         if (IsBossWave()) {
-            // boss wave
             int numBosses = currentWave / 5;
 
             for (int i = 0; i < numBosses; i++) {
@@ -93,8 +107,43 @@ public class EnemyManager : MonoBehaviour {
                 enemies.Add(enemy);
             }
         }
+    }
 
-        OnWaveStarted?.Invoke(currentWave, IsBossWave());
+    private void AddFastAttack() {
+        // randomly spawn 1-3 super-fast buggies after level 5        
+        if (currentWave > 5) {
+            if (Random.value < 0.5) {
+                int numberToSpawn = Random.Range(1, 3);
+                for (int i = 0; i < numberToSpawn; i++) {
+                    Vector3 spawnAt = spawnpoint.position;
+                    spawnAt += new Vector3(Random.value * 2, (Random.value * 8) - 4, 0);
+                    GameObject enemy = Instantiate<GameObject>(buggyPrefab, spawnAt, Quaternion.identity);
+                    Soldier b = enemy.GetComponent<Soldier>();
+                    b.SetTarget(attackPoint);
+                    b.transform.parent = transform;
+                    b.OnEnemyDied.AddListener(EnemyDied);
+                    enemies.Add(enemy);
+                    uiManager.SetMessage("A fast-attack enemy has joined the wave!");
+                }
+            }
+        }
+    }
+
+    private void AddShootyTanks() {
+        // randomly spawn a shooty tank
+        if (currentWave > 0) {
+            if (Random.value < 2) {
+                Vector3 spawnAt = spawnpoint.position;
+                spawnAt += new Vector3(Random.value * 2, (Random.value * 8) - 4, 0);
+                GameObject enemy = Instantiate<GameObject>(shootyTankPrefab, spawnAt, Quaternion.identity);
+                Soldier b = enemy.GetComponent<Soldier>();
+                b.SetTarget(attackPoint);
+                b.transform.parent = transform;
+                b.OnEnemyDied.AddListener(EnemyDied);
+                enemies.Add(enemy);
+                uiManager.SetMessage("A shooty tank has joined the wave!");
+            }
+        }
     }
 
     public List<GameObject> GetEnemies() {
@@ -107,6 +156,7 @@ public class EnemyManager : MonoBehaviour {
         if (enemies.Count == 0) { 
             OnWaveEnded?.Invoke(-1, false);
             timeToNextWave = INTRA_WAVE_TIMER;
+            uiManager.SetMessage($"Wave {currentWave} destroyed!");
         }
     }
 

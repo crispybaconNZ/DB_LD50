@@ -16,11 +16,12 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] private Color canPlaceColour = Color.green;
     [SerializeField] private Color cantPlaceColour = Color.red;
     [SerializeField] private PlayerDataSO playerData;
+
+    // animation items
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject placementPuff;
 
     private int score;
-    //private float timeSinceLastUpdate;
     private float elapsedTime;
     private PlayerMode currentMode = PlayerMode.Viewing;
     private GameObject currentDefence = null;  // current defence being placed (if any)
@@ -60,7 +61,6 @@ public class PlayerManager : MonoBehaviour {
         defences = new List<DefenceBuilding>();
         uiManager = GameObject.Find("UI").GetComponent<UIManager>();
         enemyManager = GameObject.Find("EnemyController").GetComponent<EnemyManager>();
-        // timeSinceLastUpdate = 2.0f;
         elapsedTime = 0f;
 
         _grid = new DBGrid<GameObject>(50, 10, 1f, new Vector3(-5f, -5f), () => { return null; });
@@ -110,7 +110,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Update() {
-        // timeSinceLastUpdate -= Time.deltaTime;
         elapsedTime += Time.deltaTime;
         uiManager.UpdateElapsedTime(elapsedTime);
         if (scorePeak < score) { scorePeak = score; }
@@ -153,7 +152,7 @@ public class PlayerManager : MonoBehaviour {
                     pos = _grid.SnapToGridMidPoint(pos);
 
                     defence.OnDefenceDestroyed.AddListener(DefenceDestroyed);
-                    SubtractFromScore(defence.cost);
+                    SubtractFromScore(defence.GetCost());
                     defence.transform.SetParent(defencesContainer);
                     defences.Add(defence);
 
@@ -161,6 +160,7 @@ public class PlayerManager : MonoBehaviour {
                     Vector3 position = Camera.main.WorldToScreenPoint(defence.transform.position - new Vector3(0.5f, 0.25f));
                     GameObject puff = Instantiate(placementPuff, position, Quaternion.identity, GameObject.Find("UI").transform);
                     Destroy(puff, 8 / 15f);
+                    FindObjectOfType<AudioManager>().Play("defencePlaced");
 
                     currentDefence = null;
                     currentMode = PlayerMode.Viewing;
@@ -213,9 +213,11 @@ public class PlayerManager : MonoBehaviour {
     public void DefenceDestroyed(Vector3 pos) {
         // a defence has been destroyed, so remove it from the grid and subtract its 
         // starting health from score
-        DefenceBuilding defence = _grid.GetValue(pos).GetComponent<DefenceBuilding>();       
+        GameObject go = _grid.GetValue(pos);
+        if (go == null) { return; }
+        DefenceBuilding defence = go.GetComponent<DefenceBuilding>();       
         _grid.SetValue(pos, null);
-        SubtractFromScore(defence.startingHealth);
+        SubtractFromScore(defence.GetStartingHealth());
     }
 
     private void PopulatePlayerData() {
@@ -237,4 +239,7 @@ public class PlayerManager : MonoBehaviour {
             return "WTF? Something else caused your demise?!";
         }
     }
+
+    public List<DefenceBuilding> GetDefences() { return defences; }
+
 }
