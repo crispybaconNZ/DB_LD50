@@ -4404,6 +4404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1482622830}
+  - component: {fileID: 1482622831}
   m_Layer: 0
   m_Name: PlayArea
   m_TagString: Untagged
@@ -4430,6 +4431,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1482622831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482622829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c20f9bca0b10744b0974aa4b81d20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clutterSprites:
+  - {fileID: -1907045912131586258, guid: 2e42d2485dd0d94408d73fb27d9992f0, type: 3}
+  - {fileID: 5499240427418068864, guid: 2e42d2485dd0d94408d73fb27d9992f0, type: 3}
+  - {fileID: -2266380408353431979, guid: 2e42d2485dd0d94408d73fb27d9992f0, type: 3}
+  - {fileID: -5690923696091186616, guid: 2e42d2485dd0d94408d73fb27d9992f0, type: 3}
+  cluttererPrefab: {fileID: 5448789088440308060, guid: 93508ac9fa083854db8de87b6e09f167, type: 3}
 --- !u!1 &1582924153
 GameObject:
   m_ObjectHideFlags: 0

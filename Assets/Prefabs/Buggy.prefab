@@ -99,12 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813b882d7dea2df4e9d939dc4576007b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 6
+  startingHealth: 8
   speed_: 5
   _damage: 2
   attackSpeed: 0.5
   pointsValue: 15
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
+  _canShoot: 0
+  bulletPrefab: {fileID: 0}
+  _shootRange: 5
+  firingPoint: {fileID: 0}
 --- !u!50 &4057599500853237817
 Rigidbody2D:
   serializedVersion: 4

@@ -15,7 +15,9 @@ public class EnemyBulletController : MonoBehaviour {
 
         if (hit.collider != null && !hit.collider.CompareTag("Bullet")) {
             DefenceBuilding d = hit.collider.GetComponent<DefenceBuilding>();
-            d.DoDamage(damage);
+            if (d != null) {
+                d.DoDamage(damage);
+            }
             Destroy(this.gameObject);
         } else {
             this.transform.position += direction * speed * Time.deltaTime;

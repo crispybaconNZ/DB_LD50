@@ -67,7 +67,7 @@ public class EnemyManager : MonoBehaviour {
         currentWave++;
 
         // add enemies
-        // AddNormalSoldiers();
+        AddNormalSoldiers();
         AddBosses();
         AddFastAttack();
         AddShootyTanks();
@@ -110,7 +110,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     private void AddFastAttack() {
-        // randomly spawn 1-3 super-fast buggies after level 5        
+        // 50% chance to randomly spawn 1-3 super-fast buggies after level 5        
         if (currentWave > 5) {
             if (Random.value < 0.5) {
                 int numberToSpawn = Random.Range(1, 3);
@@ -122,17 +122,21 @@ public class EnemyManager : MonoBehaviour {
                     b.SetTarget(attackPoint);
                     b.transform.parent = transform;
                     b.OnEnemyDied.AddListener(EnemyDied);
-                    enemies.Add(enemy);
+                    enemies.Add(enemy);                    
+                }
+                if (numberToSpawn == 1) {
                     uiManager.SetMessage("A fast-attack enemy has joined the wave!");
+                } else {
+                    uiManager.SetMessage($"{numberToSpawn} fast-attack enemies have joined the wave!");
                 }
             }
         }
     }
 
     private void AddShootyTanks() {
-        // randomly spawn a shooty tank
-        if (currentWave > 0) {
-            if (Random.value < 2) {
+        // 40% chance to randomly spawn a shooty tank at level 7 or higher
+        if (currentWave >= 7) {
+            if (Random.value < 0.4) {
                 Vector3 spawnAt = spawnpoint.position;
                 spawnAt += new Vector3(Random.value * 2, (Random.value * 8) - 4, 0);
                 GameObject enemy = Instantiate<GameObject>(shootyTankPrefab, spawnAt, Quaternion.identity);

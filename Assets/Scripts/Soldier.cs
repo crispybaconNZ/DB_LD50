@@ -13,7 +13,7 @@ enum SoldierActivity {
 public class Soldier : MonoBehaviour, IHealth {
     [SerializeField, Range(1, 100)] private int startingHealth = 10;
     [SerializeField, Range(1f, 5f)] private float speed_ = 1.0f;
-    [SerializeField, Range(1, 20)] private int _damage = 5;
+    [SerializeField, Range(1, 20)] private int _meleeDamage = 5;
     [SerializeField, Range(0.1f, 10f)] private float attackSpeed = 0.5f;   // seconds between attacks
     [SerializeField, Range(10, 100)] private int pointsValue = 10;
     [SerializeField] private GameObject explosionPrefab;
@@ -92,7 +92,7 @@ public class Soldier : MonoBehaviour, IHealth {
                 } else { 
                     // limited to melee attacks
                     if (timeSinceLastAttack >= attackSpeed) {
-                        attackTarget?.DoDamage(_damage);
+                        attackTarget?.DoDamage(_meleeDamage);
                         timeSinceLastAttack = 0.0f;
                     } else {
                         timeSinceLastAttack += Time.deltaTime;

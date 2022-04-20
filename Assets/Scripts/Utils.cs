@@ -20,7 +20,6 @@ public class Utils {
 
         float elapsedTime = 0f;
         while (elapsedTime <= seconds) {
-            Debug.Log("Delay() elapsed time: " + elapsedTime);
             elapsedTime += Time.deltaTime;
         }
 
