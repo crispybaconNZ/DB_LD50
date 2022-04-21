@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+
+public class EntityDied : UnityEvent { }
 
 public class Utils {
     public static TextMesh CreateWorldText(string text, Transform parent = null, Vector3 localPosition = default(Vector3), int fontSize = 40, 
@@ -9,6 +13,17 @@ public class Utils {
         if (colour == null) { colour = Color.white; }
 
         return CreateWorldText(parent, text, localPosition, fontSize, (Color)colour, textAnchor, textAlignment, sortingOrder);
+    }
+
+    public static void Delay(int seconds) {
+        if (seconds <= 0) { return; }
+
+        float elapsedTime = 0f;
+        while (elapsedTime <= seconds) {
+            elapsedTime += Time.deltaTime;
+        }
+
+        return;
     }
 
     public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localPosition, int fontSize, Color colour, TextAnchor textAnchor,

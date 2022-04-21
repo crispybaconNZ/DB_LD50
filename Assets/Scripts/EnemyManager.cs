@@ -4,17 +4,24 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemyManager : MonoBehaviour {
-    private List<GameObject> enemies;
-    private int currentWave = 0;
     [SerializeField] private GameObject soldierPrefab;
     [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private GameObject buggyPrefab;
+    [SerializeField] private GameObject shootyTankPrefab;
+
+    private List<GameObject> enemies;
+    private int currentWave = 0;
     private Transform spawnpoint;
-    private float timeToNextWave = 5f;
+    private float timeToNextWave;
     private Transform attackPoint;
     private UIManager uiManager;
 
-    public class WaveEvent : UnityEvent<int> { }
-    public WaveEvent OnWaveChanged;
+    private readonly float START_GAME_TIMER = 10f;
+    private readonly float INTRA_WAVE_TIMER = 15f;
+
+    public class WaveEvent : UnityEvent<int, bool> { }
+    public WaveEvent OnWaveStarted;
+    public WaveEvent OnWaveEnded;
 
     public class EnemyDeathEvent: UnityEvent<int>{ }
     public EnemyDeathEvent OnEnemyDeath;
@@ -24,8 +31,11 @@ public class EnemyManager : MonoBehaviour {
         enemies = new List<GameObject>();
         spawnpoint = GameObject.Find("EnemySpawnPoint").transform;
         attackPoint = GameObject.Find("AttackPoint").transform;
-        uiManager = GameObject.Find("UI").GetComponent<UIManager>();
-        if (OnWaveChanged == null) { OnWaveChanged = new WaveEvent(); }
+        uiManager = GameObject.Find("UI")?.GetComponent<UIManager>();
+        timeToNextWave = START_GAME_TIMER;
+
+        if (OnWaveStarted == null) { OnWaveStarted = new WaveEvent(); }
+        if (OnWaveEnded == null) { OnWaveEnded = new WaveEvent(); }
         if (OnEnemyDeath == null) { OnEnemyDeath = new EnemyDeathEvent(); }
     }
 
@@ -33,19 +43,18 @@ public class EnemyManager : MonoBehaviour {
         // if there are no enemies, and the timeToNextWave has ticked down, create a wave
         if (enemies.Count == 0) {
             timeToNextWave -= Time.deltaTime;
-            // Debug.Log("Time to next wave: " + timeToNextWave + " seconds");
-            uiManager.SetCountdown((int)timeToNextWave);
+            uiManager.SetCountdown(timeToNextWave);
             if (timeToNextWave < 0) {
                 CreateWave();
             }
-            OnWaveChanged?.Invoke(currentWave);
+            OnWaveStarted?.Invoke(currentWave, IsBossWave());
         } else {
-            // Debug.Log("Enemies left: " + enemies.Count);
-            uiManager.SetCountdown(-1);
+            uiManager.SetCountdown(-1f);
         }
     }
 
     private void CreateWave() {
+        uiManager.ClearMessage();
         // make sure enemies list is empty
         if (enemies.Count > 0) {
             foreach (GameObject enemy in enemies) {
@@ -57,15 +66,22 @@ public class EnemyManager : MonoBehaviour {
         // increment wave counter
         currentWave++;
 
-        // add soldiers
-        int numEnemies = 10;    // base
-        // add another enemy for every 2nd level
-        numEnemies += (currentWave - 1) / 2;
-        Debug.Log("Creating wave " + currentWave + " with " + numEnemies + " enemies");
+        // add enemies
+        AddNormalSoldiers();
+        AddBosses();
+        AddFastAttack();
+        AddShootyTanks();
+
+        OnWaveStarted?.Invoke(currentWave, IsBossWave());
+    }
+
+    private void AddNormalSoldiers() {
+        int numEnemies = 10;    // base        
+        numEnemies += (currentWave - 1) / 2;  // add another enemy for every 2nd level
 
         for (int i = 0; i < numEnemies; i++) {
             Vector3 spawnAt = spawnpoint.position;
-            spawnAt += new Vector3(Random.value * 2, (Random.value * 10) - 5, 0);  
+            spawnAt += new Vector3(Random.value * 2, (Random.value * 10) - 5, 0);
 
             GameObject enemy = Instantiate<GameObject>(soldierPrefab, spawnAt, Quaternion.identity);
             Soldier s = enemy.GetComponent<Soldier>();
@@ -74,11 +90,11 @@ public class EnemyManager : MonoBehaviour {
             s.OnEnemyDied.AddListener(EnemyDied);
             enemies.Add(enemy);
         }
+    }
 
-        if (currentWave % 5 == 0) {
-            // boss wave
+    private void AddBosses() {
+        if (IsBossWave()) {
             int numBosses = currentWave / 5;
-            Debug.Log("Adding " + numBosses + " bosses");
 
             for (int i = 0; i < numBosses; i++) {
                 Vector3 spawnAt = spawnpoint.position;
@@ -91,8 +107,47 @@ public class EnemyManager : MonoBehaviour {
                 enemies.Add(enemy);
             }
         }
+    }
 
-        OnWaveChanged?.Invoke(currentWave);
+    private void AddFastAttack() {
+        // 50% chance to randomly spawn 1-3 super-fast buggies after level 5        
+        if (currentWave > 5) {
+            if (Random.value < 0.5) {
+                int numberToSpawn = Random.Range(1, 3);
+                for (int i = 0; i < numberToSpawn; i++) {
+                    Vector3 spawnAt = spawnpoint.position;
+                    spawnAt += new Vector3(Random.value * 2, (Random.value * 8) - 4, 0);
+                    GameObject enemy = Instantiate<GameObject>(buggyPrefab, spawnAt, Quaternion.identity);
+                    Soldier b = enemy.GetComponent<Soldier>();
+                    b.SetTarget(attackPoint);
+                    b.transform.parent = transform;
+                    b.OnEnemyDied.AddListener(EnemyDied);
+                    enemies.Add(enemy);                    
+                }
+                if (numberToSpawn == 1) {
+                    uiManager.SetMessage("A fast-attack enemy has joined the wave!");
+                } else {
+                    uiManager.SetMessage($"{numberToSpawn} fast-attack enemies have joined the wave!");
+                }
+            }
+        }
+    }
+
+    private void AddShootyTanks() {
+        // 40% chance to randomly spawn a shooty tank at level 7 or higher
+        if (currentWave >= 7) {
+            if (Random.value < 0.4) {
+                Vector3 spawnAt = spawnpoint.position;
+                spawnAt += new Vector3(Random.value * 2, (Random.value * 8) - 4, 0);
+                GameObject enemy = Instantiate<GameObject>(shootyTankPrefab, spawnAt, Quaternion.identity);
+                Soldier b = enemy.GetComponent<Soldier>();
+                b.SetTarget(attackPoint);
+                b.transform.parent = transform;
+                b.OnEnemyDied.AddListener(EnemyDied);
+                enemies.Add(enemy);
+                uiManager.SetMessage("A shooty tank has joined the wave!");
+            }
+        }
     }
 
     public List<GameObject> GetEnemies() {
@@ -100,13 +155,16 @@ public class EnemyManager : MonoBehaviour {
     }
 
     public void EnemyDied(int points, GameObject enemy) {
-        // Debug.Log("Enemy " + enemy + " died, worth " + points);
         enemies.Remove(enemy);
         OnEnemyDeath?.Invoke(points);
-        if (enemies.Count == 0) { timeToNextWave = 10f; }
+        if (enemies.Count == 0) { 
+            OnWaveEnded?.Invoke(-1, false);
+            timeToNextWave = INTRA_WAVE_TIMER;
+            uiManager.SetMessage($"Wave {currentWave} destroyed!");
+        }
     }
 
-    public int EnemyCount() {
-        return enemies.Count;
-    }
+    public int EnemyCount() { return enemies.Count; }
+
+    private bool IsBossWave() { return currentWave % 5 == 0; }
 }

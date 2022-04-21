@@ -15,18 +15,36 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "PlaceDefence",
+                    "name": "ScrollDefences",
+                    "type": "Value",
+                    "id": "4e4b89fa-ff0e-4066-b536-0f2b3d4770e0",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Select",
                     "type": "Button",
-                    "id": "f14613e1-370d-4529-a1e5-2b5b0aeab723",
+                    "id": "023ca3ea-a27b-4f52-8896-0bfd18eac167",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CancelPlaceDefence",
+                    "name": "Cancel",
                     "type": "Button",
-                    "id": "bc951397-61fa-4f29-9327-8e54307d4e68",
+                    "id": "617be57d-5cb8-443f-b260-4e47bbe562bd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BuildMenu",
+                    "type": "Button",
+                    "id": "476e6ac9-d99a-4972-9c95-05c46d531481",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -51,7 +69,7 @@
                     "path": "<Keyboard>/#(A)",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DefaultControlScheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -62,7 +80,7 @@
                     "path": "<Keyboard>/#(D)",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DefaultControlScheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -84,7 +102,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DefaultControlScheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -95,35 +113,96 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "DefaultControlScheme",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "f0a278eb-90f3-46b2-b801-aa0409456cec",
-                    "path": "<Mouse>/leftButton",
+                    "id": "6f58738b-bece-41d1-b57e-d61a8da66c1c",
+                    "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "PlaceDefence",
+                    "groups": "DefaultControlScheme",
+                    "action": "ScrollDefences",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4daeeda0-596e-48a4-9238-9ba36e2804d2",
+                    "id": "716d1aca-d998-4517-b1e2-ebb048bf1427",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DefaultControlScheme",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6672ef6-905d-41ca-b96e-5ddbb79c5efd",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DefaultControlScheme",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a926944-61bb-4d74-bb28-f97fea3ee1d8",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "CancelPlaceDefence",
+                    "groups": "DefaultControlScheme",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4e8a35b-c8ad-48a3-ad1e-dc10b7a49f97",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DefaultControlScheme",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02fe875f-ec28-4b9c-8b4a-878ba92828c8",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DefaultControlScheme",
+                    "action": "BuildMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "085ab74b-b152-4a93-876f-83d54de6e542",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "DefaultControlScheme",
+                    "action": "BuildMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "DefaultControlScheme",
+            "bindingGroup": "DefaultControlScheme",
+            "devices": []
+        }
+    ]
 }

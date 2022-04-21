@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7144010825499184120}
   - component: {fileID: 6722110856564609533}
   - component: {fileID: 4463754411570762056}
+  - component: {fileID: -7241230584671158098}
+  - component: {fileID: -3784141155838853388}
   m_Layer: 7
   m_Name: Barrier
   m_TagString: Defence
@@ -122,13 +124,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54ff57f13b1e664d95d47dfe5aef52d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 10
+  startingHealth: 15
   _name: Barrier
   _description: Simple barrier. Does not attack but can take a lot of damage before
-    it's destroyed.
-  attackRadius: 1.5
-  attackRate: 0.5
+    it is destroyed.
+  attackRadius: 0
+  attackRate: 10
   canAttack: 0
+  isTriggered: 0
   firePoint: {fileID: 0}
   bulletPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
+  contactDamage: 0
   cost: 20
+--- !u!114 &-7241230584671158098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386190853125064196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.55
+--- !u!50 &-3784141155838853388
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386190853125064196}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

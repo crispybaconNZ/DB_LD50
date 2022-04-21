@@ -1,147 +1,92 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using TMPro;
-
+using System.Collections;
 
 public class UIManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI enemiesText;
-    [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] private GameObject countdownTimer;
     [SerializeField] private TextMeshProUGUI gameOverText;
-    [SerializeField] private Button defencesButton;
-    [SerializeField] private GameObject defenceCardPrefab;
+    [SerializeField] private GameObject buildMenu;
+    [SerializeField] private TextMeshProUGUI elapsedTimeText;
+    [SerializeField] private TextMeshProUGUI enemiesDestroyedText;
+    [SerializeField] private PlayerManager _playerManager;
+    [SerializeField] private EnemyManager _enemyManager;
 
-    [SerializeField] private DefenceBuilding[] defences;
-
-    private GameObject defenceUIcanvas;
-    private PlayerManager playerManager;
-    private EnemyManager enemyManager;
-    // private Button barrierPurchaseButton;
-    // private Button turretPurchaseButton;
-
-    private readonly Color enabledButtonColour = new Color(0f, 1f, 0.15f);
-    private readonly Color disabledButtonColour = new Color(0.5f, 0.5f, 0.5f);
-
-    private readonly int[] columns = new int[] { 0, 250, 475 };
-    private readonly int[] rows = new int[] { 65, -150 };
-
-    public class DefenceSelected : UnityEvent<DefenceBuilding> { }
-    public DefenceSelected OnDefenceSelected;
-
-    private void Awake() {
-        if (OnDefenceSelected == null) { OnDefenceSelected = new DefenceSelected(); }
-    }
-
-    private void Start() {
-        playerManager = GameObject.Find("PlayerBase").GetComponent<PlayerManager>();
-        playerManager.OnScoreChanged.AddListener(UpdateScore);
-        playerManager.OnGameOver.AddListener(DisplayGameOver);
-
-        enemyManager = GameObject.Find("EnemyController").GetComponent<EnemyManager>();
-        enemyManager.OnWaveChanged.AddListener(UpdateWave);
-        enemyManager.OnEnemyDeath.AddListener(SetEnemyCount);
-
-        defencesButton.onClick.AddListener(OnDefencesButtonClicked);
-        defenceUIcanvas = GameObject.Find("DefencesUI");
-
-        /* barrierPurchaseButton = GameObject.Find("BarrierPurchaseButton").GetComponent<Button>();
-        barrierPurchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cost: " + DefenceBuilding.BARRIER_COST;
-        turretPurchaseButton = GameObject.Find("TurretPurchaseButton").GetComponent<Button> ();
-        turretPurchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cost: " + DefenceBuilding.TURRET_COST; */
-        SetUpDefenceCards();
-
-        // turn off text fields not needed on start-up
-        defenceUIcanvas.SetActive(false);
+    private void Start() {        
+        countdownTimer.SetActive(false);
+        buildMenu.SetActive(false);
+        UpdateScore(_playerManager.GetScore());
         gameOverText.enabled = false;
-        waveText.enabled = false;
-        enemiesText.enabled = false;
 
-        UpdateScore(playerManager.GetScore());
+        _playerManager.OnBuildMenuOpenClose.AddListener(ShowBuildMenu);
+        _playerManager.OnScoreChanged.AddListener(UpdateScore);
+        _playerManager.OnGameOver.AddListener(ShowGameOver);
+
+        _enemyManager.OnWaveStarted.AddListener(UpdateWave);
+        _enemyManager.OnWaveEnded.AddListener(UpdateWave);
+        _enemyManager.OnEnemyDeath.AddListener(UpdateEnemyCount);
     }
 
-    private void SetUpDefenceCards() {
-        Debug.Log("# defences: " + defences.Length);
-        int index = 0;
-        foreach (DefenceBuilding building in defences) {
-            int row = index / 3;
-            int column = index % 3;
-            Debug.Log("Row: " + row + ", Column: " + column);
-            Vector3 pos = new Vector3(columns[column], rows[row]);
+    public void UpdateScore(int score) { scoreText.text = $"{score:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); }
 
-            GameObject prefab = Instantiate<GameObject>(defenceCardPrefab, pos, Quaternion.identity, GameObject.Find("Buildings").transform);
-            prefab.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = building._name;
-            prefab.transform.GetChild(2).GetComponent<Image>().sprite = building.GetComponent<SpriteRenderer>().sprite;
-            prefab.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = building._description;
-            prefab.transform.GetChild(4).GetComponentInChildren<TextMeshProUGUI>().text = "Cost: " + building.cost;          
-
-            index++;
-        }
-    }
-
-    public void Update() {
-
-    }
-
-    public void UpdateScore(int score) {
-        scoreText.text = score.ToString();
-    }
-
-    public void UpdateWave(int wave) {
+    public void UpdateWave(int wave, bool isBossWave = false) {
         if (wave > 0) {
-            waveText.text = "Wave: " + wave.ToString();
-            waveText.enabled = true;
-            SetEnemyCount();
+            waveText.text = (isBossWave ? "*" : "") + wave.ToString();
+            UpdateEnemyCount(_enemyManager.EnemyCount());
         } else {
-            waveText.enabled = false; 
+            waveText.text = "---";
+            UpdateEnemyCount(0);
         }
     }
 
-    public void OnDefencesButtonClicked() {
-        defenceUIcanvas.SetActive(true);
-        defencesButton.enabled = false; // don't want to click on it again
-
-        // enable purchase buttons and set colour depending on cost vs. score
-        // icky, nasty not-nice hard coupling going on here ... avert your eyes
-        // changed score-cost comparison from >= to >, so player can't lose by spending all their points
-        // barrierPurchaseButton.enabled = playerManager.GetScore() > DefenceBuilding.BARRIER_COST;
-        // barrierPurchaseButton.GetComponent<Image>().color = barrierPurchaseButton.enabled ? enabledButtonColour : disabledButtonColour;
-        // turretPurchaseButton.enabled = playerManager.GetScore() > DefenceBuilding.TURRET_COST;
-        // turretPurchaseButton.GetComponent<Image>().color = turretPurchaseButton.enabled ? enabledButtonColour : disabledButtonColour;  
+    public void UpdateEnemyCount(int count) {
+        enemiesText.text = _enemyManager.EnemyCount().ToString();
     }
 
-    public void OnDefencesDialogCloseButtonClicked() {
-        defenceUIcanvas.SetActive(false);
-        defencesButton.enabled = true;
-    }
 
     public void SetMessage(string message) { messageText.text = message.Trim(); }
     public void ClearMessage() { SetMessage(""); }
 
-    public void SetCountdown(int timeLeft) {
-        if (timeLeft >= 0) {
-            countdownText.text = "Time to next wave: " + timeLeft.ToString() + " seconds";
+    public void SetCountdown(float timeLeft) {
+        if (timeLeft > 0f) {
+            countdownTimer.SetActive(true);
+            Slider slider = countdownTimer.GetComponent<Slider>();
+            slider.value = timeLeft;
         } else {
-            countdownText.text = "";
+            countdownTimer.SetActive(false);
         }
     }
 
-    public void DisplayGameOver() {
+    public void ShowBuildMenu(bool show) {
+        buildMenu?.SetActive(show);
+    }
+
+    private void ShowGameOver() {
         gameOverText.enabled = true;
+        StartCoroutine(GameOverScreenAfterDelay());
     }
-
-    public void SetEnemyCount(int _ = 0) {
-        if (enemyManager.EnemyCount() > 0) {
-            enemiesText.text = "Enemies: " + enemyManager.EnemyCount();
-            enemiesText.enabled = true;
-        } else {
-            enemiesText.enabled = false;
-        }
-    }
-
     
+    public void UpdateElapsedTime(float time) {
+        elapsedTimeText.text = TimeFloatToString(time);
+    }
+
+    private string TimeFloatToString(float time) {
+        string minutes = Mathf.Floor(time / 60).ToString("00");
+        string seconds = Mathf.Floor(time % 60).ToString("00");
+        return minutes + ":" + seconds;
+    }
+
+    public void UpdateEnemiesDestroyed(int count) {
+        enemiesDestroyedText.text = $"{count:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); 
+    }
+
+    IEnumerator GameOverScreenAfterDelay() {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Game Over");
+    }
 }

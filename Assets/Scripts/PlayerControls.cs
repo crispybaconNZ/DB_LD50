@@ -37,18 +37,36 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""PlaceDefence"",
+                    ""name"": ""ScrollDefences"",
+                    ""type"": ""Value"",
+                    ""id"": ""4e4b89fa-ff0e-4066-b536-0f2b3d4770e0"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Select"",
                     ""type"": ""Button"",
-                    ""id"": ""f14613e1-370d-4529-a1e5-2b5b0aeab723"",
+                    ""id"": ""023ca3ea-a27b-4f52-8896-0bfd18eac167"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CancelPlaceDefence"",
+                    ""name"": ""Cancel"",
                     ""type"": ""Button"",
-                    ""id"": ""bc951397-61fa-4f29-9327-8e54307d4e68"",
+                    ""id"": ""617be57d-5cb8-443f-b260-4e47bbe562bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuildMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""476e6ac9-d99a-4972-9c95-05c46d531481"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -73,7 +91,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/#(A)"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""DefaultControlScheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -84,7 +102,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/#(D)"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""DefaultControlScheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -106,7 +124,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""DefaultControlScheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -117,43 +135,106 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""DefaultControlScheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f0a278eb-90f3-46b2-b801-aa0409456cec"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""id"": ""6f58738b-bece-41d1-b57e-d61a8da66c1c"",
+                    ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlaceDefence"",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""ScrollDefences"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4daeeda0-596e-48a4-9238-9ba36e2804d2"",
+                    ""id"": ""716d1aca-d998-4517-b1e2-ebb048bf1427"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6672ef6-905d-41ca-b96e-5ddbb79c5efd"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a926944-61bb-4d74-bb28-f97fea3ee1d8"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CancelPlaceDefence"",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4e8a35b-c8ad-48a3-ad1e-dc10b7a49f97"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02fe875f-ec28-4b9c-8b4a-878ba92828c8"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""BuildMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""085ab74b-b152-4a93-876f-83d54de6e542"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""DefaultControlScheme"",
+                    ""action"": ""BuildMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""DefaultControlScheme"",
+            ""bindingGroup"": ""DefaultControlScheme"",
+            ""devices"": []
+        }
+    ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_PlaceDefence = m_Player.FindAction("PlaceDefence", throwIfNotFound: true);
-        m_Player_CancelPlaceDefence = m_Player.FindAction("CancelPlaceDefence", throwIfNotFound: true);
+        m_Player_ScrollDefences = m_Player.FindAction("ScrollDefences", throwIfNotFound: true);
+        m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
+        m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
+        m_Player_BuildMenu = m_Player.FindAction("BuildMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -214,15 +295,19 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_PlaceDefence;
-    private readonly InputAction m_Player_CancelPlaceDefence;
+    private readonly InputAction m_Player_ScrollDefences;
+    private readonly InputAction m_Player_Select;
+    private readonly InputAction m_Player_Cancel;
+    private readonly InputAction m_Player_BuildMenu;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @PlaceDefence => m_Wrapper.m_Player_PlaceDefence;
-        public InputAction @CancelPlaceDefence => m_Wrapper.m_Player_CancelPlaceDefence;
+        public InputAction @ScrollDefences => m_Wrapper.m_Player_ScrollDefences;
+        public InputAction @Select => m_Wrapper.m_Player_Select;
+        public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
+        public InputAction @BuildMenu => m_Wrapper.m_Player_BuildMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -235,12 +320,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @PlaceDefence.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlaceDefence;
-                @PlaceDefence.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlaceDefence;
-                @PlaceDefence.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlaceDefence;
-                @CancelPlaceDefence.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelPlaceDefence;
-                @CancelPlaceDefence.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelPlaceDefence;
-                @CancelPlaceDefence.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancelPlaceDefence;
+                @ScrollDefences.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollDefences;
+                @ScrollDefences.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollDefences;
+                @ScrollDefences.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollDefences;
+                @Select.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSelect;
+                @Cancel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @BuildMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildMenu;
+                @BuildMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildMenu;
+                @BuildMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBuildMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -248,20 +339,37 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @PlaceDefence.started += instance.OnPlaceDefence;
-                @PlaceDefence.performed += instance.OnPlaceDefence;
-                @PlaceDefence.canceled += instance.OnPlaceDefence;
-                @CancelPlaceDefence.started += instance.OnCancelPlaceDefence;
-                @CancelPlaceDefence.performed += instance.OnCancelPlaceDefence;
-                @CancelPlaceDefence.canceled += instance.OnCancelPlaceDefence;
+                @ScrollDefences.started += instance.OnScrollDefences;
+                @ScrollDefences.performed += instance.OnScrollDefences;
+                @ScrollDefences.canceled += instance.OnScrollDefences;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+                @BuildMenu.started += instance.OnBuildMenu;
+                @BuildMenu.performed += instance.OnBuildMenu;
+                @BuildMenu.canceled += instance.OnBuildMenu;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+    private int m_DefaultControlSchemeSchemeIndex = -1;
+    public InputControlScheme DefaultControlSchemeScheme
+    {
+        get
+        {
+            if (m_DefaultControlSchemeSchemeIndex == -1) m_DefaultControlSchemeSchemeIndex = asset.FindControlSchemeIndex("DefaultControlScheme");
+            return asset.controlSchemes[m_DefaultControlSchemeSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnPlaceDefence(InputAction.CallbackContext context);
-        void OnCancelPlaceDefence(InputAction.CallbackContext context);
+        void OnScrollDefences(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
+        void OnBuildMenu(InputAction.CallbackContext context);
     }
 }
