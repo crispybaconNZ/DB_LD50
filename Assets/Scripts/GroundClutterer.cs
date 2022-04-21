@@ -8,13 +8,13 @@ public class GroundClutterer : MonoBehaviour {
     void Start() {
         if (clutterSprites.Length == 0) { return; }  // no prefabs so exit
 
-        int numClutter = Random.Range(10, 50);
+        int numClutter = Random.Range(10, 30);
         List<Vector3> positions = new List<Vector3>(numClutter);   // array to store positions for clutter
 
         for (int i = 0; i < numClutter; i++) {
             // find a random location to place the clutter
             Vector3 pos = new Vector3(Random.Range(0f, 30f) - 5, Random.Range(0f, 10f) - 5f);
-            while (!ClearSpace(pos, positions, 5)) {
+            while (!ClearSpace(pos, positions, 2f)) {
                 pos = new Vector3(Random.Range(0f, 30f) - 5f, Random.Range(0f, 10f) - 5f);
             }
 
