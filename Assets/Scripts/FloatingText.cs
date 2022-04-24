@@ -38,9 +38,9 @@ public class FloatingText : MonoBehaviour {
         _text.text = value.ToString();
     }
 
-    public void SetValue(string value) {
-        _text.color = _positiveColour;
-        _text.text = value.Trim();
+    public void SetValueAndColour(int value, Color color) {
+        _text.color = color;
+        _text.text = value.ToString();
     }
 }
 

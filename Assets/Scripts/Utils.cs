@@ -49,4 +49,13 @@ public class Utils {
         ft.GetComponent<FloatingText>().SetValue(value);
         return ft;
     }
+
+    public static GameObject CreateFloatingText(int value, GameObject host, GameObject floatingTextPrefab, Color colour) {
+        GameObject ft = GameObject.Instantiate(floatingTextPrefab);
+        ft.transform.SetParent(GameObject.Find("FloatingTextContainer").transform);
+        ft.transform.position = host.transform.position;
+        ft.GetComponent<FloatingText>().SetValueAndColour(value, colour);
+        return ft;
+    }
+
 }

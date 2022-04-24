@@ -116,6 +116,9 @@ public class Soldier : MonoBehaviour, IHealth {
 
     public void TakeHit(int damage) {
         health -= damage;
+        if (_floatingTextPrefab != null) {
+            Utils.CreateFloatingText(-damage, gameObject, _floatingTextPrefab, Color.yellow);
+        }
     }
 
     public void Die() {

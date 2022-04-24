@@ -166,6 +166,9 @@ public class PlayerManager : MonoBehaviour {
 
                     // create a floating text item
                     Utils.CreateFloatingText(-defence.GetCost(), defence.gameObject, _floatingTextPrefab);
+
+                    // enable the health bar
+                    defence.EnableHealthBar();
                     
                     // reset held defence and player mode
                     currentDefence = null;

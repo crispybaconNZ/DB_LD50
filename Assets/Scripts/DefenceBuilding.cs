@@ -17,6 +17,7 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private GameObject _floatingTextPrefab;
+    [SerializeField] private bool _showDeathFloatingText = true;
     [SerializeField, Range(0, 20)] private int contactDamage = 0;
     [SerializeField, Range(1, 100)] private int cost = 10;
     private int _currentHealth;
@@ -45,17 +46,22 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
     public void DoDamage(int damage) {
         // do the specifed amount of damage to the building
         _currentHealth -= damage;
-
         if (_currentHealth <= 0) {
             // create an explosion at this location, and destroy it once it's done
             GameObject explosion = Instantiate(explosionPrefab, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, GameObject.Find("UI").transform);
             Destroy(explosion, 11 / 30f);
             FindObjectOfType<AudioManager>().Play("explosion");
             OnDefenceDestroyed?.Invoke(transform.position);
-            if (_floatingTextPrefab != null) {
+            if (_floatingTextPrefab != null && _showDeathFloatingText) {
                 Utils.CreateFloatingText(-GetStartingHealth(), gameObject, _floatingTextPrefab);
             }
             Destroy(gameObject);
+        } else {
+            // not dead, so show damage in a difference colour
+            if (_floatingTextPrefab != null) {
+                GameObject ft = Utils.CreateFloatingText(-damage, gameObject, _floatingTextPrefab, Color.yellow);
+            }
+
         }
     }
 
@@ -134,4 +140,6 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
     public int GetHealth() { return _currentHealth; }
     public int GetStartingHealth() { return startingHealth; }
     public int GetCost() { return cost; }
+
+    public void EnableHealthBar() { GetComponent<HealthBar>().enabled = true; }
 }
