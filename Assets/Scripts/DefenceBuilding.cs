@@ -16,6 +16,7 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
     [SerializeField] private GameObject firePoint = null;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject _floatingTextPrefab;
     [SerializeField, Range(0, 20)] private int contactDamage = 0;
     [SerializeField, Range(1, 100)] private int cost = 10;
     private int _currentHealth;
@@ -25,9 +26,6 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
     private GameObject target;
     private EnemyManager enemyManager;
     private float timeSinceLastAttack;
-
-    public const int TURRET_COST = 50;
-    public const int BARRIER_COST = 20;
 
     public class DefenceDestroyed : UnityEvent<Vector3> { }
     public DefenceDestroyed OnDefenceDestroyed;
@@ -54,6 +52,9 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
             Destroy(explosion, 11 / 30f);
             FindObjectOfType<AudioManager>().Play("explosion");
             OnDefenceDestroyed?.Invoke(transform.position);
+            if (_floatingTextPrefab != null) {
+                Utils.CreateFloatingText(-GetStartingHealth(), gameObject, _floatingTextPrefab);
+            }
             Destroy(gameObject);
         }
     }

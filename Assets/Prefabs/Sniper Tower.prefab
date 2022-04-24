@@ -158,14 +158,15 @@ MonoBehaviour:
   _name: Sniper Tower
   _description: Long-range, high-damage, slow rate-of-fire.
   attackRadius: 15
-  attackRate: 2
+  attackRate: 2.5
   canAttack: 1
   isTriggered: 0
   firePoint: {fileID: 5681077655364207559}
   bulletPrefab: {fileID: 5533848630896479205, guid: 8314eef98f4773946a64fb149baf4781, type: 3}
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
+  _floatingTextPrefab: {fileID: 7471479169332816304, guid: 835686a80b5cd3a4ebf5b0e2d31c443c, type: 3}
   contactDamage: 0
-  cost: 45
+  cost: 75
 --- !u!114 &5681077656821662379
 MonoBehaviour:
   m_ObjectHideFlags: 0

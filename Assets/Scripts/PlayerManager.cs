@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject placementPuff;
 
+    [SerializeField] private GameObject _floatingTextPrefab;
+
     private int score;
     private float elapsedTime;
     private PlayerMode currentMode = PlayerMode.Viewing;
@@ -162,6 +164,10 @@ public class PlayerManager : MonoBehaviour {
                     Destroy(puff, 8 / 15f);
                     FindObjectOfType<AudioManager>().Play("defencePlaced");
 
+                    // create a floating text item
+                    Utils.CreateFloatingText(-defence.GetCost(), defence.gameObject, _floatingTextPrefab);
+                    
+                    // reset held defence and player mode
                     currentDefence = null;
                     currentMode = PlayerMode.Viewing;
                     uiManager.ClearMessage();

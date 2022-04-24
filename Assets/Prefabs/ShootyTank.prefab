@@ -136,6 +136,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7184960607760736161, guid: 6bcca5a5df18fd84792d50b51652373b, type: 3}
   _shootRange: 9
   firingPoint: {fileID: 4008589665047532455}
+  _floatingTextPrefab: {fileID: 7471479169332816304, guid: 835686a80b5cd3a4ebf5b0e2d31c443c, type: 3}
 --- !u!50 &4008589664340038457
 Rigidbody2D:
   serializedVersion: 4

@@ -165,6 +165,7 @@ MonoBehaviour:
   firePoint: {fileID: 3281764449234084578}
   bulletPrefab: {fileID: 5767610915948587510, guid: 6f11269e9993dc84d89c85b9198e432c, type: 3}
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
+  _floatingTextPrefab: {fileID: 7471479169332816304, guid: 835686a80b5cd3a4ebf5b0e2d31c443c, type: 3}
   contactDamage: 0
   cost: 50
 --- !u!114 &-9160673779983263322

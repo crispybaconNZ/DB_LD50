@@ -41,4 +41,12 @@ public class Utils {
         textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
         return textMesh;
     }
+
+    public static GameObject CreateFloatingText(int value, GameObject host, GameObject floatingTextPrefab) {
+        GameObject ft = GameObject.Instantiate(floatingTextPrefab);
+        ft.transform.SetParent(GameObject.Find("FloatingTextContainer").transform);
+        ft.transform.position = host.transform.position;
+        ft.GetComponent<FloatingText>().SetValue(value);
+        return ft;
+    }
 }

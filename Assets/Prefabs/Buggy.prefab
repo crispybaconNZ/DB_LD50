@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 8
   speed_: 5
-  _damage: 2
+  _meleeDamage: 5
   attackSpeed: 0.5
   pointsValue: 15
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
@@ -109,6 +109,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   _shootRange: 5
   firingPoint: {fileID: 0}
+  _floatingTextPrefab: {fileID: 7471479169332816304, guid: 835686a80b5cd3a4ebf5b0e2d31c443c, type: 3}
 --- !u!50 &4057599500853237817
 Rigidbody2D:
   serializedVersion: 4

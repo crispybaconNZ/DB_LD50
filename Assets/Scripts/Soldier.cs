@@ -21,6 +21,7 @@ public class Soldier : MonoBehaviour, IHealth {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField, Range(0f, 10f)] private float _shootRange = 5f;
     [SerializeField] private GameObject firingPoint;
+    [SerializeField] private GameObject _floatingTextPrefab;
 
     private Transform target_;   // where the enemy is trying to get to
     private DefenceBuilding attackTarget = null; // what the enemy is attacking
@@ -121,7 +122,10 @@ public class Soldier : MonoBehaviour, IHealth {
         GameObject explosion = Instantiate(explosionPrefab, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, GameObject.Find("UI").transform);
         Destroy(explosion, 11 / 30f);
         FindObjectOfType<AudioManager>().Play("explosion");
-        OnEnemyDied?.Invoke(pointsValue, this.gameObject);        
+        OnEnemyDied?.Invoke(pointsValue, this.gameObject);
+        if (_floatingTextPrefab != null) {
+            Utils.CreateFloatingText(pointsValue, gameObject, _floatingTextPrefab);
+        }
         Destroy(this.gameObject);
     }
 
