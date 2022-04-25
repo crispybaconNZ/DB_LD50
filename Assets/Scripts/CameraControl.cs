@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class CameraControl : MonoBehaviour {
     private PlayerControls playerControls;
     private Transform cam;
-    [SerializeField] private float camSpeed = 1.0f;
+    [SerializeField, Tooltip("Speed the camera moves at")] private float camSpeed = 1.0f;
     private const float minX = 3.89f;
     private const float maxX = 16.13f;
 

@@ -11,17 +11,17 @@ enum SoldierActivity {
 }
 
 public class Soldier : MonoBehaviour, IHealth {
-    [SerializeField, Range(1, 100)] private int startingHealth = 10;
-    [SerializeField, Range(1f, 5f)] private float speed_ = 1.0f;
-    [SerializeField, Range(1, 20)] private int _meleeDamage = 5;
-    [SerializeField, Range(0.1f, 10f)] private float attackSpeed = 0.5f;   // seconds between attacks
-    [SerializeField, Range(10, 100)] private int pointsValue = 10;
-    [SerializeField] private GameObject explosionPrefab;
-    [SerializeField] private bool _canShoot = false;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField, Range(0f, 10f)] private float _shootRange = 5f;
-    [SerializeField] private GameObject firingPoint;
-    [SerializeField] private GameObject _floatingTextPrefab;
+    [SerializeField, Range(1, 100), Tooltip("Number of hitpoints enemy starts with (0-100)")] private int startingHealth = 10;
+    [SerializeField, Range(1f, 5f), Tooltip("Speed enemy moves at (1-5)")] private float _speed = 1.0f;
+    [SerializeField, Range(1, 20), Tooltip("Amount of melee damage done (1-20)")] private int _meleeDamage = 5;
+    [SerializeField, Range(0.1f, 10f), Tooltip("Number of seconds between attacks (0.1-10)")] private float attackSpeed = 0.5f;
+    [SerializeField, Range(10, 100), Tooltip("Number of points enemy is worth (10-100)")] private int pointsValue = 10;
+    [SerializeField, Tooltip("Prefab for explosion")] private GameObject explosionPrefab;
+    [SerializeField, Tooltip("Whether the enemy can shoot from range")] private bool _canShoot = false;
+    [SerializeField, Tooltip("Prefab for bullet")] private GameObject bulletPrefab;
+    [SerializeField, Range(0f, 10f), Tooltip("Maximum range the enemy will shoot from (0-10)")] private float _shootRange = 5f;
+    [SerializeField, Tooltip("Where the enemy's bullets appear")] private GameObject firingPoint;
+    [SerializeField, Tooltip("Prefab for enemy's floating text")] private GameObject _floatingTextPrefab;
 
     private Transform target_;   // where the enemy is trying to get to
     private DefenceBuilding attackTarget = null; // what the enemy is attacking
@@ -54,9 +54,9 @@ public class Soldier : MonoBehaviour, IHealth {
             if (target_ != null) {
                 Vector3 direction = this.transform.position - target_.position;
                 direction.Normalize();
-                this.transform.position -= direction * speed_ * Time.deltaTime;
+                this.transform.position -= direction * _speed * Time.deltaTime;
             } else {
-                this.transform.position += Vector3.left * speed_ * Time.deltaTime;
+                this.transform.position += Vector3.left * _speed * Time.deltaTime;
             }
 
             if (this.transform.position.x <= -10) { Destroy(this.gameObject); }  // destroy if gone off left-edge of play area

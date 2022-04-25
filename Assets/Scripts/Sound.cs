@@ -3,9 +3,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class Sound {
-    public string name;
-    public AudioClip clip;
-    [Range(0f, 1f)] public float volume;
-    [Range(0.1f, 3f)] public float pitch;
+    [Tooltip("Name for this sound (must be unique)")] public string name;
+    [Tooltip("Audio clip for this sound")] public AudioClip clip;
+    [Range(0f, 1f), Tooltip("Volume to play this sound (0-1)")] public float volume;
+    [Range(0.1f, 3f), Tooltip("Pitch to play this sound (0.1-3)")] public float pitch;
     [HideInInspector] public AudioSource source;
 }

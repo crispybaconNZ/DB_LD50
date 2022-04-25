@@ -3,8 +3,7 @@ using System;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour {
-    public Sound[] sounds;
-
+    [Tooltip("Array of sounds")] public Sound[] sounds;
 
     void Awake() {
         foreach (Sound s in sounds) {

@@ -13,15 +13,15 @@ enum PlayerMode {
 }
 
 public class PlayerManager : MonoBehaviour {
-    [SerializeField] private Color canPlaceColour = Color.green;
-    [SerializeField] private Color cantPlaceColour = Color.red;
-    [SerializeField] private PlayerDataSO playerData;
+    [SerializeField, Tooltip("Colour to shade defence if can be placed at current location")] private Color canPlaceColour = Color.green;
+    [SerializeField, Tooltip("Colour to shade defence if cannot be placed at current location")] private Color cantPlaceColour = Color.red;
+    [SerializeField, Tooltip("Player data storage")] private PlayerDataSO playerData;
 
     // animation items
-    [SerializeField] private GameObject explosion;
-    [SerializeField] private GameObject placementPuff;
+    [SerializeField, Tooltip("Prefab for an explosion")] private GameObject explosion;
+    [SerializeField, Tooltip("Prefab for placing a defence")] private GameObject placementPuff;
 
-    [SerializeField] private GameObject _floatingTextPrefab;
+    [SerializeField, Tooltip("Prefab for base's floating text")] private GameObject _floatingTextPrefab;
 
     private int score;
     private float elapsedTime;

@@ -1196,7 +1196,7 @@ MonoBehaviour:
   firePoint: {fileID: 1782189610}
   bulletPrefab: {fileID: 0}
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
-  _floatingTextPrefab: {fileID: 0}
+  _floatingTextPrefab: {fileID: 7471479169332816304, guid: 835686a80b5cd3a4ebf5b0e2d31c443c, type: 3}
   _showDeathFloatingText: 0
   contactDamage: 0
   cost: 0
@@ -1847,6 +1847,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 296260845}
     m_Modifications:
+    - target: {fileID: -9160673779983263322, guid: 34ba7fcab5fb1b44db66b72f4c6d15fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1042480194021810145, guid: 34ba7fcab5fb1b44db66b72f4c6d15fd, type: 3}
       propertyPath: destructionSound
       value: 

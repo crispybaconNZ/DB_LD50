@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MainMenuManager : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI versionText;
+    [SerializeField, Tooltip("Reference to TMPro text field for version number")] private TextMeshProUGUI versionText;
     private void Start() {
         versionText.text = "v" + Application.version;
     }

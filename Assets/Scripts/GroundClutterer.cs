@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundClutterer : MonoBehaviour {
-    public Sprite[] clutterSprites;
-    public GameObject cluttererPrefab;
+    [Tooltip("Sprites to use to generate ground clutter")] public Sprite[] clutterSprites;
+    [Tooltip("Prefab to use to display ground clutter")] public GameObject cluttererPrefab;
     
     void Start() {
         if (clutterSprites.Length == 0) { return; }  // no prefabs so exit

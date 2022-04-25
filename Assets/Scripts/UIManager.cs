@@ -5,17 +5,17 @@ using TMPro;
 using System.Collections;
 
 public class UIManager : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI messageText;
-    [SerializeField] private TextMeshProUGUI waveText;
-    [SerializeField] private TextMeshProUGUI enemiesText;
-    [SerializeField] private GameObject countdownTimer;
-    [SerializeField] private TextMeshProUGUI gameOverText;
-    [SerializeField] private GameObject buildMenu;
-    [SerializeField] private TextMeshProUGUI elapsedTimeText;
-    [SerializeField] private TextMeshProUGUI enemiesDestroyedText;
-    [SerializeField] private PlayerManager _playerManager;
-    [SerializeField] private EnemyManager _enemyManager;
+    [SerializeField, Tooltip("Reference to TMPro text field for score")] private TextMeshProUGUI scoreText;
+    [SerializeField, Tooltip("Reference to TMPro text field for message")] private TextMeshProUGUI messageText;
+    [SerializeField, Tooltip("Reference to TMPro text field for wave number")] private TextMeshProUGUI waveText;
+    [SerializeField, Tooltip("Reference to TMPro text field for number of enemies in wave")] private TextMeshProUGUI enemiesText;
+    [SerializeField, Tooltip("Reference to countdown timer")] private GameObject countdownTimer;
+    [SerializeField, Tooltip("Reference to TMPro text field for game over text")] private TextMeshProUGUI gameOverText;
+    [SerializeField, Tooltip("Reference to build menu")] private GameObject buildMenu;
+    [SerializeField, Tooltip("Reference to TMPro text field for elapsed time")] private TextMeshProUGUI elapsedTimeText;
+    [SerializeField, Tooltip("Reference to TMPro text field for number of enemies destroyed")] private TextMeshProUGUI enemiesDestroyedText;
+    [SerializeField, Tooltip("Reference to player manager")] private PlayerManager _playerManager;
+    [SerializeField, Tooltip("Reference to enemy manager")] private EnemyManager _enemyManager;
 
     private void Start() {        
         countdownTimer.SetActive(false);

@@ -4,20 +4,19 @@ using UnityEngine;
 using TMPro;
 
 public class FloatingText : MonoBehaviour {
-    [SerializeField] private Color _positiveColour;
-    [SerializeField] private Color _negativeColour;
-    [SerializeField, Range(0.25f, 5.0f)] private float _lifespan = 2.0f;     // how long the floating text "survives" on screen
-    [SerializeField, Range(-1f, 1f)] private float _yOffset = 0.55f;
-    [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField, Range(0.0f, 2.0f)] private float _speed = 0.1f;
+    [SerializeField, Tooltip("Colour to use for zero or positive values")] private Color _positiveColour = Color.green;
+    [SerializeField, Tooltip("Colour to use for negative values")] private Color _negativeColour = Color.red;
+    [SerializeField, Range(0.25f, 5.0f), Tooltip("How long the floating text remains on screen in seconds (0.25-5)")] private float _lifespan = 2.0f;
+    [SerializeField, Range(-1f, 1f), Tooltip("Vertical offset from host to spawn the text at")] private float _yOffset = 0.55f;
+    [SerializeField, Tooltip("Refence to the TMPro text field")] private TextMeshProUGUI _text;
+    [SerializeField, Range(0.0f, 2.0f), Tooltip("Speed the text moves upwards at (0-2)")] private float _speed = 0.1f;
 
     private float _lifetime = 0.0f;
-    private Vector3 _worldPosition;
 
     void Start() {
         _lifetime = 0;
-        _worldPosition = transform.position;
-        _text.transform.position = Camera.main.WorldToScreenPoint(_worldPosition);
+        transform.position = new Vector3(transform.position.x, transform.position.y + _yOffset);
+        _text.transform.position = Camera.main.WorldToScreenPoint(transform.position);
     }
 
     // Update is called once per frame
@@ -29,8 +28,8 @@ public class FloatingText : MonoBehaviour {
         }
 
         // still alive so move upwards
-        _worldPosition = new Vector3(_worldPosition.x, _worldPosition.y + _yOffset + (_speed * Time.deltaTime));
-        transform.position = _worldPosition;    // just move the GameObject, the text will move with it
+        transform.position = new Vector3(transform.position.x, transform.position.y + (_speed * Time.deltaTime));
+        _text.transform.position = Camera.main.WorldToScreenPoint(transform.position);
     }
 
     public void SetValue(int value) {

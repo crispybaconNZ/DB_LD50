@@ -5,24 +5,23 @@ using UnityEngine.Events;
 
 
 public class DefenceBuilding : MonoBehaviour, IHealth {
-    [SerializeField, Range(0, 20)] private int startingHealth = 10;
+    [SerializeField, Range(0, 20), Tooltip("Hit points defence will start with (0-20)")] private int startingHealth = 10;
     public string _name = "building";
     public string _description = "a building";
 
-    [SerializeField, Range(0f, 20f)] private float attackRadius = 1.5f;
-    [SerializeField, Range(0.1f, 10f)] private float attackRate = 0.5f;    // number of seconds between shots
-    [SerializeField] private bool canAttack = false;
-    [SerializeField] private bool isTriggered = false;
-    [SerializeField] private GameObject firePoint = null;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject explosionPrefab;
-    [SerializeField] private GameObject _floatingTextPrefab;
-    [SerializeField] private bool _showDeathFloatingText = true;
-    [SerializeField, Range(0, 20)] private int contactDamage = 0;
-    [SerializeField, Range(1, 100)] private int cost = 10;
+    [SerializeField, Range(0f, 20f), Tooltip("Maximum distance this defence will start attacking (0-20)")] private float attackRadius = 1.5f;
+    [SerializeField, Range(0.1f, 10f), Tooltip("Number of seconds between attacks (0.1-10)")] private float attackRate = 0.5f;
+    [SerializeField, Tooltip("Whether this defence can attack enemies")] private bool canAttack = false;
+    [SerializeField, Tooltip("Whether this defence is triggered by an enemy")] private bool isTriggered = false;
+    [SerializeField, Tooltip("Location defence's bullets appear from")] private GameObject firePoint = null;
+    [SerializeField, Tooltip("Prefab for the defence's bullets")] private GameObject bulletPrefab;
+    [SerializeField, Tooltip("Prefab for an explosion")] private GameObject explosionPrefab;
+    [SerializeField, Tooltip("Prefab for defence's floating text")] private GameObject _floatingTextPrefab;
+    [SerializeField, Tooltip("Whether this defence shows floating score decrease on death")] private bool _showDeathFloatingText = true;
+    [SerializeField, Range(0, 20), Tooltip("Damage done to an enemy on contact")] private int contactDamage = 0;
+    [SerializeField, Range(1, 100), Tooltip("Purchasee cost of the defence")] private int cost = 10;
     private int _currentHealth;
     
-
     private List<GameObject> targetList;
     private GameObject target;
     private EnemyManager enemyManager;

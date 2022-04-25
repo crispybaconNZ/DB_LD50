@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletController : MonoBehaviour {
-    [SerializeField, Range(1, 10)] private int damage = 1;
-    [SerializeField, Range(1, 20)] private float speed = 10f;
+    [SerializeField, Range(1, 10), Tooltip("Damage done by this bullet (1-10)")] private int damage = 1;
+    [SerializeField, Range(1, 20), Tooltip("Speed of the bullet")] private float speed = 10f;
     private Vector3 direction = Vector3.zero;
 
     public int GetDamage() { return damage; }

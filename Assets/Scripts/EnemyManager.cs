@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemyManager : MonoBehaviour {
-    [SerializeField] private GameObject soldierPrefab;
-    [SerializeField] private GameObject bossPrefab;
-    [SerializeField] private GameObject buggyPrefab;
-    [SerializeField] private GameObject shootyTankPrefab;
+    [SerializeField, Tooltip("Prefab for grunt enemies")] private GameObject soldierPrefab;
+    [SerializeField, Tooltip("Prefab for boss enemies")] private GameObject bossPrefab;
+    [SerializeField, Tooltip("Prefab for buggy enemies")] private GameObject buggyPrefab;
+    [SerializeField, Tooltip("Prefab for shooty tanks")] private GameObject shootyTankPrefab;
 
     private List<GameObject> enemies;
     private int currentWave = 0;
