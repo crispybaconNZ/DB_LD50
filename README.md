@@ -61,3 +61,7 @@ I double checked the Unity manuals, and on the page describing [`MonoBehavior.Aw
 * [Advanced Pixel LCD 7 by Style-7](https://www.1001freefonts.com/advanced-pixel-lcd-7.font)
 * [2015 Cruiser by Pixel Sagas - Neale Davidson](https://www.1001freefonts.com/2015-cruiser.font)
 * [Feast of Flesh by Blambot Fonts](https://www.1001freefonts.com/feast-of-flesh.font)
+
+### Unity references
+* [Brackeys (YouTube channel)](https://www.youtube.com/c/Brackeys)
+* [Code Monkey (YouTube channel)](https://www.youtube.com/c/CodeMonkeyUnity)
