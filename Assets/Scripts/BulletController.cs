@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour {
 
         if (hit.collider != null) {
             Soldier s = hit.collider.GetComponent<Soldier>();
-            s.TakeHit(damage);
+            s.DoDamage(damage);
             Destroy(this.gameObject);
         } else {
             this.transform.position += direction * speed * Time.deltaTime;

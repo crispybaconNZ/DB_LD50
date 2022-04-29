@@ -59,3 +59,8 @@ public class Utils {
     }
 
 }
+
+public enum Belligerents {
+    Defender,
+    Attacker
+}

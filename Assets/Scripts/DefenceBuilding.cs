@@ -42,7 +42,7 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
         GetEnemies(0, false);
     }
 
-    public void DoDamage(int damage) {
+    public int DoDamage(int damage) {
         // do the specifed amount of damage to the building
         _currentHealth -= damage;
         if (_currentHealth <= 0) {
@@ -55,13 +55,18 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
                 Utils.CreateFloatingText(-GetStartingHealth(), gameObject, _floatingTextPrefab);
             }
             Destroy(gameObject);
+            return 0;
         } else {
             // not dead, so show damage in a difference colour
             if (_floatingTextPrefab != null) {
                 GameObject ft = Utils.CreateFloatingText(-damage, gameObject, _floatingTextPrefab, Color.yellow);
             }
-
+            return _currentHealth;
         }
+    }
+
+    public bool IsDead() {
+        return _currentHealth <= 0;
     }
 
     public void SetTarget(GameObject target) {
@@ -131,7 +136,7 @@ public class DefenceBuilding : MonoBehaviour, IHealth {
         
         if (distance <= attackRadius) {
             Soldier s = target.GetComponent<Soldier>();
-            s.TakeHit(contactDamage);
+            s.DoDamage(contactDamage);
             DoDamage(1);
         }
     }

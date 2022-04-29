@@ -47,7 +47,7 @@ public class Soldier : MonoBehaviour, IHealth {
     }
 
     void Update() {
-        if (health <= 0) { Die(); }
+        if (IsDead()) { Die(); }
 
         if (status == SoldierActivity.Walking) {
             // walks straight towards the target
@@ -114,12 +114,15 @@ public class Soldier : MonoBehaviour, IHealth {
         }
     }
 
-    public void TakeHit(int damage) {
+    public int DoDamage(int damage) {
         health -= damage;
         if (_floatingTextPrefab != null) {
             Utils.CreateFloatingText(-damage, gameObject, _floatingTextPrefab, Color.yellow);
         }
+        return health;
     }
+
+    public bool IsDead() { return health <= 0; }
 
     public void Die() {
         GameObject explosion = Instantiate(explosionPrefab, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, GameObject.Find("UI").transform);
