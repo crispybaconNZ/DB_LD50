@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8987586996718731282}
   - component: {fileID: 8987586996718731283}
   - component: {fileID: 5416510622825651873}
+  - component: {fileID: 2019300737489611583}
   m_Layer: 7
   m_Name: Mine
   m_TagString: Defence
@@ -135,6 +136,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   explosionPrefab: {fileID: 3647467473467711000, guid: a8549f12346b660489c2a56b5758eee1, type: 3}
   _floatingTextPrefab: {fileID: 7471479169332816304, guid: 835686a80b5cd3a4ebf5b0e2d31c443c, type: 3}
+  _showDeathFloatingText: 1
   contactDamage: 10
   cost: 15
 --- !u!95 &5416510622825651873
@@ -156,3 +158,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2019300737489611583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8987586996718731284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dff903968b6ad43bc20a931305ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 3491217443680890058, guid: c6c28a56c5ac74a4696d8f5f5c469d23, type: 3}
+  healthBarCorrection: -0.55
