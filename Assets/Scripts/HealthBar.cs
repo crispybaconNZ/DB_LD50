@@ -32,7 +32,7 @@ public class HealthBar : MonoBehaviour {
         healthBarInstance = Instantiate(healthBarPrefab);
         healthBarInstance.transform.SetParent(canvas.transform, false);
         hostPosition = new Vector3(transform.position.x, transform.position.y + healthBarCorrection);
-        isHostEnemy = GetComponent<Soldier>() != null;
+        //isHostEnemy = GetComponent<Soldier>() != null;
         slider = healthBarInstance.GetComponent<Slider>();
         slider.minValue = 0;
         slider.maxValue = GetComponent<IHealth>().GetStartingHealth();
@@ -41,9 +41,9 @@ public class HealthBar : MonoBehaviour {
         healthBarInstance.transform.position = Camera.main.WorldToScreenPoint(hostPosition);
        
         if (isHostEnemy) {
-            GetComponent<Soldier>().OnEnemyDied.AddListener(EnemyDied);
+            //GetComponent<Soldier>().OnEnemyDied.AddListener(EnemyDied);
         } else {
-            GetComponent<DefenceBuilding>().OnDefenceDestroyed.AddListener(DefenceBuildingDied);
+            // GetComponent<DefenceBuilding>().OnDefenceDestroyed.AddListener(DefenceBuildingDied);
         }
     }
 

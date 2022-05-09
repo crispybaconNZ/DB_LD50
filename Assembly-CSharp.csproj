@@ -56,33 +56,27 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\GroundClutterer.cs" />
     <Compile Include="Assets\Scripts\TestingGrid.cs" />
-    <Compile Include="Assets\Scripts\BuildMenu.cs" />
+    <Compile Include="Assets\Scripts\Managers\BuildMenu.cs" />
     <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
-    <Compile Include="Assets\Scripts\DefenceHealthBar.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\WeaponSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PlayerDataSO.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
-    <Compile Include="Assets\Scripts\DefenceBuilding.cs" />
-    <Compile Include="Assets\Scripts\InstructionsManager.cs" />
-    <Compile Include="Assets\Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\InstructionsManager.cs" />
     <Compile Include="Assets\Scripts\IHealth.cs" />
-    <Compile Include="Assets\Scripts\DemoSolider.cs" />
-    <Compile Include="Assets\Scripts\PlayerManager.cs" />
-    <Compile Include="Assets\Scripts\MainMenuManager.cs" />
-    <Compile Include="Assets\Scripts\Boss.cs" />
+    <Compile Include="Assets\Scripts\Managers\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\FloatingText.cs" />
     <Compile Include="Assets\Scripts\DBGrid.cs" />
-    <Compile Include="Assets\Scripts\EnemyBulletController.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\Soldier.cs" />
-    <Compile Include="Assets\Scripts\GameOverManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameOverManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\WeaponSO.cs" />
+    <Compile Include="Assets\Scripts\Units\BaseUnit.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\BaseUnitSO.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\DefenderSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
