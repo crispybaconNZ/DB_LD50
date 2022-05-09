@@ -56,27 +56,26 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\GroundClutterer.cs" />
-    <Compile Include="Assets\Scripts\TestingGrid.cs" />
-    <Compile Include="Assets\Scripts\Managers\BuildMenu.cs" />
-    <Compile Include="Assets\Scripts\Sound.cs" />
-    <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Units\BaseUnit.cs" />
+    <Compile Include="Assets\Scripts\Game\GroundClutterer.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\DefenderSO.cs" />
+    <Compile Include="Assets\Scripts\Game\Managers\BuildMenu.cs" />
+    <Compile Include="Assets\Scripts\Game\Sound.cs" />
+    <Compile Include="Assets\Scripts\Game\HealthBar.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\WeaponSO.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PlayerDataSO.cs" />
-    <Compile Include="Assets\Scripts\PlayerControls.cs" />
-    <Compile Include="Assets\Scripts\Managers\InstructionsManager.cs" />
-    <Compile Include="Assets\Scripts\IHealth.cs" />
-    <Compile Include="Assets\Scripts\Managers\MainMenuManager.cs" />
-    <Compile Include="Assets\Scripts\CameraControl.cs" />
-    <Compile Include="Assets\Scripts\FloatingText.cs" />
-    <Compile Include="Assets\Scripts\DBGrid.cs" />
-    <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\GameOverManager.cs" />
-    <Compile Include="Assets\Scripts\Utils.cs" />
-    <Compile Include="Assets\Scripts\Units\BaseUnit.cs" />
+    <Compile Include="Assets\Scripts\Game\PlayerControls.cs" />
+    <Compile Include="Assets\Scripts\InstructionsScreen\InstructionsManager.cs" />
+    <Compile Include="Assets\Scripts\Game\IHealth.cs" />
+    <Compile Include="Assets\Scripts\MainMenuScreen\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\Game\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\Game\FloatingText.cs" />
+    <Compile Include="Assets\Scripts\Game\DBGrid.cs" />
+    <Compile Include="Assets\Scripts\Game\Managers\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Managers\AudioManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\BaseUnitSO.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\DefenderSO.cs" />
+    <Compile Include="Assets\Scripts\GameOverScreen\GameOverManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
