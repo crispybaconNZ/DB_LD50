@@ -5,88 +5,59 @@ using TMPro;
 using System.Collections;
 
 public class UIManager : MonoBehaviour {
-    [SerializeField, Tooltip("Reference to TMPro text field for score")] private TextMeshProUGUI scoreText;
-    [SerializeField, Tooltip("Reference to TMPro text field for message")] private TextMeshProUGUI messageText;
-    [SerializeField, Tooltip("Reference to TMPro text field for wave number")] private TextMeshProUGUI waveText;
-    [SerializeField, Tooltip("Reference to TMPro text field for number of enemies in wave")] private TextMeshProUGUI enemiesText;
-    [SerializeField, Tooltip("Reference to countdown timer")] private GameObject countdownTimer;
-    [SerializeField, Tooltip("Reference to TMPro text field for game over text")] private TextMeshProUGUI gameOverText;
-    [SerializeField, Tooltip("Reference to build menu")] private GameObject buildMenu;
-    [SerializeField, Tooltip("Reference to TMPro text field for elapsed time")] private TextMeshProUGUI elapsedTimeText;
-    [SerializeField, Tooltip("Reference to TMPro text field for number of enemies destroyed")] private TextMeshProUGUI enemiesDestroyedText;
-    // [SerializeField, Tooltip("Reference to player manager")] private PlayerManager _playerManager;
-    // [SerializeField, Tooltip("Reference to enemy manager")] private EnemyManager _enemyManager;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _waveText;
+    [SerializeField] private TextMeshProUGUI _enemiesText;
+    [SerializeField] private TextMeshProUGUI _elapsedTimeText;
+    [SerializeField] private TextMeshProUGUI _destroyedText;
+    [SerializeField] private TextMeshProUGUI _bonusText;
+    [SerializeField] private TextMeshProUGUI _messageText;
 
-    private void Start() {        
-        countdownTimer.SetActive(false);
-        buildMenu.SetActive(false);
-        // UpdateScore(_playerManager.GetScore());
-        gameOverText.enabled = false;
-
-        /*_playerManager.OnBuildMenuOpenClose.AddListener(ShowBuildMenu);
-        _playerManager.OnScoreChanged.AddListener(UpdateScore);
-        _playerManager.OnGameOver.AddListener(ShowGameOver);
-
-        _enemyManager.OnWaveStarted.AddListener(UpdateWave);
-        _enemyManager.OnWaveEnded.AddListener(UpdateWave);
-        _enemyManager.OnEnemyDeath.AddListener(UpdateEnemyCount);*/
+    public void SetScoreText(int score) {
+        _scoreText.text = $"{score:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
     }
 
-    public void UpdateScore(int score) { scoreText.text = $"{score:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); }
-
-    public void UpdateWave(int wave, bool isBossWave = false) {
-        if (wave > 0) {
-            waveText.text = (isBossWave ? "*" : "") + wave.ToString();
-            // UpdateEnemyCount(_enemyManager.EnemyCount());
-        } else {
-            waveText.text = "---";
-            UpdateEnemyCount(0);
-        }
+    public void SetElapsedTime(int minutes, int seconds) {
+        string min = minutes.ToString("00");
+        string sec = seconds.ToString("00");
+        _elapsedTimeText.text = $"{min}:{sec}";
     }
 
-    public void UpdateEnemyCount(int count) {
-        // enemiesText.text = _enemyManager.EnemyCount().ToString();
+    public void SetElapsedTime(float elapsedTime) {
+        int minutes = (int)Mathf.Floor(elapsedTime / 60);
+        int seconds = (int)Mathf.Floor(elapsedTime % 60);
+        SetElapsedTime(minutes, seconds);
     }
 
+    public void SetBonusText(int bonus) {
+        if (bonus < 1)
+            bonus = 1;
 
-    public void SetMessage(string message) { messageText.text = message.Trim(); }
-    public void ClearMessage() { SetMessage(""); }
-
-    public void SetCountdown(float timeLeft) {
-        if (timeLeft > 0f) {
-            countdownTimer.SetActive(true);
-            Slider slider = countdownTimer.GetComponent<Slider>();
-            slider.value = timeLeft;
-        } else {
-            countdownTimer.SetActive(false);
-        }
+        _bonusText.text = "x" + bonus.ToString("00");
     }
 
-    public void ShowBuildMenu(bool show) {
-        buildMenu?.SetActive(show);
+    public void SetWaveText(int wave) {        
+        _waveText.text = $"{wave.ToString("000")}";
     }
 
-    private void ShowGameOver() {
-        gameOverText.enabled = true;
-        StartCoroutine(GameOverScreenAfterDelay());
-    }
-    
-    public void UpdateElapsedTime(float time) {
-        elapsedTimeText.text = TimeFloatToString(time);
+    public void SetWaveText(string wave) {
+        _waveText.text = $"{wave.Trim()}";
     }
 
-    private string TimeFloatToString(float time) {
-        string minutes = Mathf.Floor(time / 60).ToString("00");
-        string seconds = Mathf.Floor(time % 60).ToString("00");
-        return minutes + ":" + seconds;
+    public void SetEnemiesText(int enemies) {
+        _enemiesText.text = $"{enemies.ToString("000")}";
     }
 
-    public void UpdateEnemiesDestroyed(int count) {
-        enemiesDestroyedText.text = $"{count:N0}".ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")); 
+    public void SetDestroyedText(int destroyed) {
+        _destroyedText.text = $"{destroyed.ToString("000")}";
     }
 
-    IEnumerator GameOverScreenAfterDelay() {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("Game Over");
+    private void Start() {
+        SetScoreText(0);
+        SetElapsedTime(0);
+        SetBonusText(0);
+        SetWaveText("-");
+        SetEnemiesText(0);
+        SetDestroyedText(0);
     }
 }
